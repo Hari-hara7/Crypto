@@ -6,6 +6,15 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 // Registering Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+// Time intervals for CoinGecko API
+const timeIntervals: Record<string, string> = {
+  "1h": "hourly",
+  "1d": "daily",
+  "7d": "weekly",
+  "30d": "monthly",
+  "1y": "yearly",
+};
+
 interface HistoricalChartProps {
   cryptoId: string;
 }
@@ -15,30 +24,40 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
   const [selectedInterval, setSelectedInterval] = useState<string>("1d");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [availableCryptos, setAvailableCryptos] = useState<any[]>([]);
+  const [selectedCrypto, setSelectedCrypto] = useState<string>(cryptoId);
 
-  // Mapping of time intervals to CoinGecko API time ranges
-  const timeIntervals: Record<string, string> = {
-    "1h": "hourly",
-    "1d": "daily",
-    "7d": "weekly",
-    "30d": "monthly",
-    "1y": "yearly",
-  };
+  // Fetch available cryptocurrencies
+  useEffect(() => {
+    const fetchCryptos = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.coingecko.com/api/v3/coins/list"
+        );
+        setAvailableCryptos(response.data);
+      } catch (error) {
+        console.error("Error fetching cryptocurrency list:", error);
+      }
+    };
+    fetchCryptos();
+  }, []);
 
   useEffect(() => {
     const fetchHistoricalData = async () => {
       setLoading(true);
       setError(null);
+
       try {
         const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${cryptoId}/market_chart`,
+          `https://api.coingecko.com/api/v3/coins/${selectedCrypto}/market_chart`,
           {
             params: {
               vs_currency: "usd",
-              days: timeIntervals[selectedInterval] === "hourly" ? "1" : selectedInterval, // 1d -> 1, 7d -> 7, etc.
+              days: timeIntervals[selectedInterval] === "hourly" ? "1" : selectedInterval,
             },
           }
         );
+
         const prices = response.data.prices;
         const labels = prices.map((item: any) => new Date(item[0]).toLocaleTimeString());
         const data = prices.map((item: any) => item[1]);
@@ -47,7 +66,7 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
           labels,
           datasets: [
             {
-              label: `${cryptoId} Price (USD)`,
+              label: `${selectedCrypto} Price (USD)`,
               data,
               fill: false,
               borderColor: "#3498db",
@@ -55,58 +74,63 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
             },
           ],
         });
-      } catch (error) {
-        setError("Error fetching historical data.");
+      } catch (error: any) {
+        setError(error?.response?.data?.message || "Error fetching historical data.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchHistoricalData();
-  }, [cryptoId, selectedInterval]);
+    if (selectedCrypto) {
+      fetchHistoricalData();
+    }
+  }, [selectedCrypto, selectedInterval]);
 
   const handleIntervalChange = (interval: string) => {
     setSelectedInterval(interval);
   };
 
-  if (loading) return <p>Loading chart...</p>;
-  if (error) return <p>{error}</p>;
+  const handleCryptoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCrypto(e.target.value);
+  };
+
+  if (loading) return <div className="text-white text-center">Loading chart... <div className="spinner"></div></div>;
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto">
-      <h2 className="text-xl font-bold text-center mb-4">Historical Data</h2>
+    <div className="bg-gray-900 p-6 rounded-lg shadow-xl max-w-3xl mx-auto">
+      <h2 className="text-xl font-bold text-white text-center mb-4">Historical Data</h2>
+      
+      {/* Crypto Selection Dropdown */}
       <div className="text-center mb-4">
-        <button
-          onClick={() => handleIntervalChange("1h")}
-          className={`py-2 px-4 mx-2 ${selectedInterval === "1h" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+        <select
+          value={selectedCrypto}
+          onChange={handleCryptoChange}
+          className="py-2 px-4 rounded-full bg-gray-700 text-gray-300"
         >
-          1 Hour
-        </button>
-        <button
-          onClick={() => handleIntervalChange("1d")}
-          className={`py-2 px-4 mx-2 ${selectedInterval === "1d" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          1 Day
-        </button>
-        <button
-          onClick={() => handleIntervalChange("7d")}
-          className={`py-2 px-4 mx-2 ${selectedInterval === "7d" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          7 Days
-        </button>
-        <button
-          onClick={() => handleIntervalChange("30d")}
-          className={`py-2 px-4 mx-2 ${selectedInterval === "30d" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          30 Days
-        </button>
-        <button
-          onClick={() => handleIntervalChange("1y")}
-          className={`py-2 px-4 mx-2 ${selectedInterval === "1y" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          1 Year
-        </button>
+          {availableCryptos.map((crypto) => (
+            <option key={crypto.id} value={crypto.id}>
+              {crypto.name} ({crypto.symbol.toUpperCase()})
+            </option>
+          ))}
+        </select>
       </div>
+
+      {/* Interval Buttons */}
+      <div className="text-center mb-4 flex justify-center space-x-3">
+        {["1h", "1d", "7d", "30d", "1y"].map((interval) => (
+          <button
+            key={interval}
+            onClick={() => handleIntervalChange(interval)}
+            className={`py-2 px-4 rounded-full transition duration-300 mx-2 
+              ${selectedInterval === interval ? "bg-blue-500 text-white border-2 border-blue-600" : "bg-gray-700 text-gray-300 hover:bg-blue-500 hover:text-white"}`}
+          >
+            {interval === "1h" ? "1 Hour" : interval === "1d" ? "1 Day" : interval === "7d" ? "7 Days" : interval === "30d" ? "30 Days" : "1 Year"}
+          </button>
+        ))}
+      </div>
+
+      {/* Chart */}
       {chartData && <Line data={chartData} />}
     </div>
   );

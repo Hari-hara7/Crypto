@@ -12,6 +12,7 @@ const Preferences: React.FC = () => {
     investmentGoal: "",
     riskTolerance: "",
   });
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchPreferences = async () => {
@@ -26,6 +27,15 @@ const Preferences: React.FC = () => {
 
     if (user) {
       fetchPreferences();
+    }
+  }, [user]);
+
+  // Check if user is signed in with Google
+  useEffect(() => {
+    if (user && user.providerData[0]?.providerId !== "google.com") {
+      setShowAlert(true); // Show alert if user is not signed in with Google
+    } else {
+      setShowAlert(false); // Hide alert if user is signed in with Google
     }
   }, [user]);
 
@@ -48,6 +58,13 @@ const Preferences: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 to-black text-white flex justify-center items-center">
       <div className="preferences-container p-6 bg-gray-800 text-white rounded-lg shadow-lg max-w-2xl w-full mx-4">
+        {/* Show alert if the user is not signed in with Google */}
+        {showAlert && (
+          <div className="bg-red-500 text-white p-4 mb-4 rounded-lg">
+            <strong>Alert:</strong> Please sign in with Google to access this feature.
+          </div>
+        )}
+
         {/* User Profile */}
         <div className="flex items-center mb-6 animate-fadeIn">
           <img
@@ -137,31 +154,29 @@ const Preferences: React.FC = () => {
         </div>
 
         {/* Display Saved Preferences */}
-       {/* Display Saved Preferences */}
-<div className="mt-6">
-  <h3 className="text-lg font-semibold flex items-center">
-    <FaSave className="mr-2 text-blue-500" /> Saved Preferences:
-  </h3>
-  <div className="mt-3 bg-gray-700 p-4 rounded-lg shadow-md">
-    <p className="flex items-center">
-      <FaCoins className="mr-2 text-yellow-400" />
-      <strong>Favorite Coins:</strong> {preferences.favoriteCoins || "Not set"}
-    </p>
-    <p className="flex items-center mt-2">
-      <FaWallet className="mr-2 text-green-400" />
-      <strong>Portfolio:</strong> {preferences.portfolio || "Not set"}
-    </p>
-    <p className="flex items-center mt-2">
-      <FaUserEdit className="mr-2 text-blue-400" />
-      <strong>Investment Goal:</strong> {preferences.investmentGoal || "Not set"}
-    </p>
-    <p className="flex items-center mt-2">
-      <FaSave className="mr-2 text-red-400" />
-      <strong>Risk Tolerance:</strong> {preferences.riskTolerance || "Not set"}
-    </p>
-  </div>
-</div>
-
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold flex items-center">
+            <FaSave className="mr-2 text-blue-500" /> Saved Preferences:
+          </h3>
+          <div className="mt-3 bg-gray-700 p-4 rounded-lg shadow-md">
+            <p className="flex items-center">
+              <FaCoins className="mr-2 text-yellow-400" />
+              <strong>Favorite Coins:</strong> {preferences.favoriteCoins || "Not set"}
+            </p>
+            <p className="flex items-center mt-2">
+              <FaWallet className="mr-2 text-green-400" />
+              <strong>Portfolio:</strong> {preferences.portfolio || "Not set"}
+            </p>
+            <p className="flex items-center mt-2">
+              <FaUserEdit className="mr-2 text-blue-400" />
+              <strong>Investment Goal:</strong> {preferences.investmentGoal || "Not set"}
+            </p>
+            <p className="flex items-center mt-2">
+              <FaSave className="mr-2 text-red-400" />
+              <strong>Risk Tolerance:</strong> {preferences.riskTolerance || "Not set"}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
