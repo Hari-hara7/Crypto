@@ -58,5 +58,5 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 
 1. **Clone the Repository**  
    ```bash  
-   git clone https://github.com/<your-username>/crypto-tracker.git  
+   git clone https://github.com/Hari-hara7/Crypto.git
    cd crypto-tracker  
