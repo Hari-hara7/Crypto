@@ -71,12 +71,21 @@ const Header: React.FC = () => {
           Preferences
         </Link>
         {user ? (
-          <button
-            onClick={handleSignOut}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-          >
-            Sign Out
-          </button>
+          <div className="flex items-center space-x-4">
+            {user.photoURL && (
+              <img
+                src={user.photoURL}
+                alt="Profile"
+                className="w-10 h-10 rounded-full border-2 border-teal-400"
+              />
+            )}
+            <button
+              onClick={handleSignOut}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+            >
+              Sign Out
+            </button>
+          </div>
         ) : (
           <Link
             to="/auth"
@@ -168,15 +177,24 @@ const Header: React.FC = () => {
             Preferences
           </Link>
           {user ? (
-            <button
-              onClick={() => {
-                handleSignOut();
-                toggleMenu();
-              }}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-            >
-              Sign Out
-            </button>
+            <div className="flex flex-col items-center space-y-4">
+              {user.photoURL && (
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
+                  className="w-16 h-16 rounded-full border-2 border-teal-400"
+                />
+              )}
+              <button
+                onClick={() => {
+                  handleSignOut();
+                  toggleMenu();
+                }}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              >
+                Sign Out
+              </button>
+            </div>
           ) : (
             <Link
               to="/auth"
