@@ -24,33 +24,13 @@ const Home: React.FC = () => {
     },
   };
 
-  useEffect(() => {
-    const cursor = document.querySelector(".cursor") as HTMLElement;
+ 
 
-    const updateCursorPosition = (e: MouseEvent) => {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      cursor.style.left = `${mouseX - cursor.offsetWidth / 2}px`;
-      cursor.style.top = `${mouseY - cursor.offsetHeight / 2}px`;
-    };
-
-    const hoverElements = document.querySelectorAll(".hover-target");
-    hoverElements.forEach((element) => {
-      element.addEventListener("mouseenter", () => cursor.classList.add("active"));
-      element.addEventListener("mouseleave", () => cursor.classList.remove("active"));
-    });
-
-    window.addEventListener("mousemove", updateCursorPosition);
-    return () => window.removeEventListener("mousemove", updateCursorPosition);
-  }, []);
+   
 
   return (
     <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen">
-      {/* Custom Cursor */}
-      <div className="cursor">
-        <FaBitcoin className="cursor-icon text-teal-400" />
-      </div>
-
+     
     {/* Hero Section */}
 <section className="min-h-screen flex items-center justify-center px-6 text-center relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <Particles
