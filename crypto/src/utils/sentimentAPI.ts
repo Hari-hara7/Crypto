@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // Example API URL, replace with actual API you are using
-const SENTIMENT_API_URL = 'https://api.example.com/sentiment';
+const SENTIMENT_API_URL = 'https://api.coinlib.io/v1/coin/coinSentiment';
 
 export const fetchSentiment = async (coinId: string) => {
   try {

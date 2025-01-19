@@ -9,6 +9,10 @@ const Header: React.FC = () => (
       <Link to="/converter" className="mx-4 hover:underline">Converter</Link>
       <Link to="/news" className="mx-4 hover:underline">News</Link>
       <Link to="/compare" className="mx-4 hover:underline">Compare Coins</Link> {/* Link to CoinComparison */}
+      <Link to="/calendar" className="mx-4 hover:underline">Crypto Calendar</Link> {/* Link to Calendar Page */}
+      <Link to="/learn" className="mx-4 hover:underline">Learn Crypto</Link>  {/* New Link */}
+      <Link to="/chatbot" className="mx-4 hover:underline">Chatbot</Link> {/* Link to Chatbot */}
+
     </nav>
   </header>
 );
