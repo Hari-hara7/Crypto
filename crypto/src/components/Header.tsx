@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { getAuth, signOut } from "firebase/auth";
 import { motion } from "framer-motion";
+import { FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 
 const Header: React.FC = () => {
   const [user, setUser] = useState<any>(null);
@@ -81,16 +82,18 @@ const Header: React.FC = () => {
             )}
             <button
               onClick={handleSignOut}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded flex items-center gap-2"
             >
+              <FaSignOutAlt className="text-lg" />
               Sign Out
             </button>
           </div>
         ) : (
           <Link
             to="/auth"
-            className="bg-teal-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-teal-500 hover:bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"
           >
+            <FaSignInAlt className="text-lg" />
             Sign In
           </Link>
         )}
@@ -190,17 +193,19 @@ const Header: React.FC = () => {
                   handleSignOut();
                   toggleMenu();
                 }}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded flex items-center gap-2"
               >
+                <FaSignOutAlt className="text-lg" />
                 Sign Out
               </button>
             </div>
           ) : (
             <Link
               to="/auth"
-              className="text-teal-400 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              className="text-teal-400 hover:bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"
               onClick={toggleMenu}
             >
+              <FaSignInAlt className="text-lg" />
               Sign In
             </Link>
           )}
