@@ -105,8 +105,8 @@ const CoinComparison: React.FC = () => {
             className={`p-4 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 ${
               selectedCoins.some((selectedCoin) => selectedCoin.id === coin.id)
                 ? "bg-teal-600 text-white"
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
+                : "bg-gray-800 hover:bg-gray-700"
+            } border border-transparent`}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
