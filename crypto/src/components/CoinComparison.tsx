@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaBitcoin, FaEthereum, FaLitecoin } from "react-icons/fa"; // Importing some icons
+import { motion } from "framer-motion"; // Importing Framer Motion for animations
 
 interface Coin {
   id: string;
@@ -93,30 +94,40 @@ const CoinComparison: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-4xl font-bold text-center mb-8">Coin Comparison Tool</h1>
+      <h1 className="text-4xl font-bold text-center mb-8 text-teal-400">Coin Comparison Tool</h1>
 
-      <div className="flex flex-wrap justify-center mb-6 space-x-4">
+      {/* Coin Selection Buttons - Grid Layout */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-6">
         {coins.map((coin) => (
-          <button
+          <motion.button
             key={coin.id}
             onClick={() => handleSelectCoin(coin)}
-            className={`p-4 mx-2 my-2 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 ${
+            className={`p-4 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 ${
               selectedCoins.some((selectedCoin) => selectedCoin.id === coin.id)
-                ? "bg-blue-600 text-white"
+                ? "bg-teal-600 text-white"
                 : "bg-gray-700 hover:bg-gray-600"
             }`}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            <img src={coin.image} alt={coin.name} className="w-8 h-8 inline-block mr-2" />
-            {coin.name} ({coin.symbol.toUpperCase()})
-          </button>
+            <img src={coin.image} alt={coin.name} className="w-8 h-8 inline-block mb-2 mx-auto" />
+            <div className="text-center">{coin.name} ({coin.symbol.toUpperCase()})</div>
+          </motion.button>
         ))}
       </div>
 
+      {/* Loading/Error Messages */}
       {loading && <p className="text-center text-gray-400">Loading data...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
 
+      {/* Coin Data Table */}
       {coinData.length > 0 && (
-        <div className="overflow-x-auto shadow-lg mt-6">
+        <motion.div
+          className="overflow-x-auto shadow-lg mt-6 border-2 border-teal-500 rounded-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <table className="table-auto w-full text-left bg-gray-800 rounded-lg">
             <thead className="bg-gray-700 text-white">
               <tr>
@@ -129,7 +140,7 @@ const CoinComparison: React.FC = () => {
             </thead>
             <tbody>
               {coinData.map((coin) => (
-                <tr key={coin.id} className="border-b border-gray-600">
+                <tr key={coin.id} className="border-b border-gray-600 hover:bg-gray-700">
                   <td className="px-6 py-4 flex items-center">
                     <img
                       src={`https://cryptoicons.org/api/icon/${coin.symbol.toLowerCase()}`}
@@ -146,7 +157,7 @@ const CoinComparison: React.FC = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </motion.div>
       )}
     </div>
   );

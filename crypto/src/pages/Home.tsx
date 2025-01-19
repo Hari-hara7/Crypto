@@ -1,89 +1,139 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  FaRocket,
+  FaUserShield,
+  FaChartLine,
+  FaMobileAlt,
+  FaComments,
+  FaSyncAlt,
+  FaPlay,
+  FaInfoCircle,
+} from "react-icons/fa";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-4">Welcome to Crypto Tracker</h1>
-          <p className="text-lg mb-6">
-            Your one-stop solution for tracking cryptocurrency prices, market trends, and news.
+      <section className="min-h-screen flex items-center justify-center px-6 text-center">
+        <motion.div
+          className="max-w-4xl"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+            Take Control of Your Crypto Journey
+          </h1>
+          <p className="mt-6 text-lg md:text-xl text-gray-300">
+            Experience the ultimate crypto tracking platform designed to keep you informed and ahead in the game.
           </p>
-          <Link to="/coins">
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition">
-              Explore Cryptocurrencies
-            </button>
-          </Link>
-        </div>
-      </div>
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
+            {/* Primary Button */}
+            <motion.button
+              className="flex items-center bg-gradient-to-r from-teal-500 to-blue-500 hover:from-blue-500 hover:to-teal-500 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-lg transition duration-300 gap-2"
+              whileHover={{ scale: 1.1 }}
+            >
+              <FaPlay className="text-lg" />
+              Get Started Now
+            </motion.button>
+
+            {/* Secondary Button */}
+            <motion.button
+              className="flex items-center bg-gray-700 hover:bg-gray-600 text-gray-200 py-3 px-6 rounded-lg text-lg font-medium shadow-lg transition duration-300 gap-2"
+              whileHover={{ scale: 1.05 }}
+            >
+              <FaInfoCircle className="text-lg" />
+              Learn More
+            </motion.button>
+          </div>
+        </motion.div>
+      </section>
 
       {/* Features Section */}
-      <div className="container mx-auto py-16 px-6">
-        <h2 className="text-3xl font-bold text-center mb-10">Our Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Feature 1 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">Real-Time Prices</h3>
-            <p className="text-gray-600">
-              Stay updated with live cryptocurrency prices and market trends.
-            </p>
-          </div>
-          {/* Feature 2 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">Currency Converter</h3>
-            <p className="text-gray-600">
-              Convert cryptocurrencies to fiat or other cryptocurrencies with ease.
-            </p>
-          </div>
-          {/* Feature 3 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">Latest News</h3>
-            <p className="text-gray-600">
-              Stay informed with the latest cryptocurrency news and updates.
-            </p>
-          </div>
-          {/* Feature 4 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">Advanced Filters</h3>
-            <p className="text-gray-600">
-              Sort and filter coins by price, volume, market cap, and more.
-            </p>
-          </div>
-          {/* Feature 5 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">User-Friendly Design</h3>
-            <p className="text-gray-600">
-              A sleek and responsive interface for a seamless user experience.
-            </p>
-          </div>
-          {/* Feature 6 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">Global Accessibility</h3>
-            <p className="text-gray-600">
-              View prices and news in multiple languages and currencies.
-            </p>
-          </div>
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
+        <motion.h2
+          className="text-4xl font-bold text-center text-teal-400 mb-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Key Features
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          <FeatureCard
+            icon={<FaRocket className="text-blue-400 text-5xl" />}
+            title="Live Market Data"
+            description="Get instant updates on cryptocurrency prices and trends."
+          />
+          <FeatureCard
+            icon={<FaChartLine className="text-teal-400 text-5xl" />}
+            title="Portfolio Insights"
+            description="Monitor your investments with intuitive performance analysis tools."
+          />
+          <FeatureCard
+            icon={<FaMobileAlt className="text-green-400 text-5xl" />}
+            title="Cross-Platform Access"
+            description="Stay connected on desktop, tablet, or mobile seamlessly."
+          />
+          <FeatureCard
+            icon={<FaUserShield className="text-yellow-400 text-5xl" />}
+            title="Secure Platform"
+            description="Your data and transactions are encrypted for maximum security."
+          />
+          <FeatureCard
+            icon={<FaComments className="text-purple-400 text-5xl" />}
+            title="Expert Community"
+            description="Engage with professionals and enthusiasts to refine your strategies."
+          />
+          <FeatureCard
+            icon={<FaSyncAlt className="text-pink-400 text-5xl" />}
+            title="Auto Sync"
+            description="Sync your account and data across devices for effortless management."
+          />
         </div>
-      </div>
+      </section>
 
-      {/* Call to Action Section */}
-      <div className="bg-blue-600 text-white py-12">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Dive In?</h2>
-          <p className="text-lg mb-6">
-            Explore live prices, track trends, and stay informed with Crypto Tracker.
+      {/* About Us Section */}
+      <section className="py-20 px-6 bg-gray-900">
+        <motion.div
+          className="max-w-5xl mx-auto text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl font-bold text-teal-400 mb-8">About Us</h2>
+          <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
+            At <span className="text-teal-400 font-bold">Crypto Tracker</span>, we simplify cryptocurrency management for everyone. Whether you're a novice investor or a seasoned trader, our platform provides tools, insights, and security to succeed in the dynamic world of crypto.
           </p>
-          <Link to="/news">
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition">
-              Get the Latest News
-            </button>
-          </Link>
-        </div>
-      </div>
+          <p className="text-gray-300 text-lg md:text-xl mt-6 leading-relaxed">
+            Empowering individuals with reliable data, user-friendly features, and a supportive community, we help you navigate the complexities of cryptocurrency with confidence.
+          </p>
+        </motion.div>
+      </section>
     </div>
   );
 };
+
+// FeatureCard Component
+const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; description: string }> = ({
+  icon,
+  title,
+  description,
+}) => (
+  <motion.div
+    className="bg-gray-900 p-6 rounded-lg shadow-md text-center border-2 border-transparent hover:border-gradient-to-r hover:from-teal-400 hover:via-blue-400 hover:to-purple-400 hover:shadow-xl transition duration-300 transform hover:-translate-y-2"
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+  >
+    <div className="mb-4">{icon}</div>
+    <h3 className="text-xl font-bold text-teal-400">{title}</h3>
+    <p className="text-gray-400 mt-2">{description}</p>
+  </motion.div>
+);
 
 export default Home;
