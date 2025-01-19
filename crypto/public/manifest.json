@@ -1,0 +1,22 @@
+{
+    "name": "Hari",
+    "short_name": "Crypto Tracker",
+    "description": "A Progressive Web App built with React, TypeScript, TailwindCSS, and Framer Motion.",
+    "theme_color": "#3bc2ca",
+    "background_color": "#030712",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/icons/icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icons/icon-192.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
