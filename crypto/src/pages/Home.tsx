@@ -31,7 +31,7 @@ const Home: React.FC = () => {
   return (
     <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen">
      
-    {/* Hero Section */}
+  {/* Hero Section */}
 <section className="min-h-screen flex items-center justify-center px-6 text-center relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <Particles
     id="tsparticles"
@@ -46,17 +46,17 @@ const Home: React.FC = () => {
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1, ease: "easeOut" }}
   >
-    <h1 className="text-6xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 drop-shadow-lg">
+    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 drop-shadow-lg">
       Welcome to Crypto World
     </h1>
-    <p className="mt-6 text-lg md:text-xl text-gray-300">
+    <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300">
       Learn, invest, and explore the future of digital currencies.
     </p>
 
     <div className="mt-10 flex flex-wrap justify-center gap-6">
       <Link to="/coins">
         <motion.button
-          className="flex items-center bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 px-8 rounded-lg text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
+          className="flex items-center bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
           whileHover={{ scale: 1.1 }}
         >
           <FiArrowRight className="text-white mr-2" />
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
 
       <Link to="/compare">
         <motion.button
-          className="flex items-center bg-gray-800 hover:bg-gray-700 text-cyan-400 py-3 px-8 rounded-lg text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
+          className="flex items-center bg-gray-800 hover:bg-gray-700 text-cyan-400 py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
           whileHover={{ scale: 1.1 }}
         >
           <FiInfo className="text-cyan-400 mr-2" />
