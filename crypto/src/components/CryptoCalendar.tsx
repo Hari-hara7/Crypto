@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { FaCalendarAlt, FaRegCalendarCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
+import "react-calendar/dist/Calendar.css"; // Calendar base styling
 
 interface Event {
   date: string;
@@ -12,9 +14,8 @@ const CryptoCalendar: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  // Mock data for events (replace with actual API data)
   useEffect(() => {
-    const mockEvents = [
+    const mockEvents: Event[] = [
       {
         date: "2025-01-19",
         name: "Bitcoin Halving",
@@ -31,13 +32,8 @@ const CryptoCalendar: React.FC = () => {
         description: "The Crypto Conference 2025 will feature discussions from industry leaders.",
       },
     ];
-
-    setEvents(mockEvents); // Set mock data to events
+    setEvents(mockEvents);
   }, []);
-
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-  };
 
   const filteredEvents = events.filter((event) => {
     const eventDate = new Date(event.date);
@@ -45,48 +41,148 @@ const CryptoCalendar: React.FC = () => {
   });
 
   return (
-    <div className="crypto-calendar bg-[#121212] text-white py-8 px-6 rounded-xl shadow-xl max-w-4xl mx-auto mt-12">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gradient">
-        <FaCalendarAlt className="inline mr-2" /> Crypto Calendar
-      </h2>
+    <div className="crypto-calendar container mx-auto py-12 px-6">
+      {/* Title Section */}
+      <motion.div
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-600">
+          <FaCalendarAlt className="inline-block mr-2" />
+          Cryptocurrency Calendar
+        </h1>
+        <p className="mt-4 text-gray-400">
+          Stay updated with upcoming cryptocurrency events. Select a date to view details.
+        </p>
+      </motion.div>
 
-      <div className="calendar-container flex flex-col lg:flex-row items-start justify-between">
-        {/* Calendar */}
-        <div className="calendar w-full lg:w-1/3 mb-6 lg:mb-0">
+      {/* Calendar and Events */}
+      <div className="flex flex-col lg:flex-row gap-10">
+        {/* Calendar Section */}
+        <motion.div
+          className="calendar bg-gradient-to-b from-gray-900 to-gray-800 p-6 rounded-lg shadow-lg w-full lg:w-1/3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <h2 className="text-lg font-semibold text-teal-400 mb-4">
+            Select a Date
+          </h2>
           <Calendar
-            onChange={handleDateChange}
+            onChange={setSelectedDate}
             value={selectedDate}
-            className="rounded-lg shadow-lg border-2 border-[#333333] hover:border-[#0062cc] transition-all"
+            className="rounded-lg border-none text-gray-300 custom-calendar"
           />
-        </div>
+        </motion.div>
 
-        {/* Events List */}
-        <div className="events-list w-full lg:w-2/3 p-6 bg-[#1d1d1d] rounded-lg shadow-lg">
+        {/* Events Section */}
+        <motion.div
+          className="events-list bg-gray-900 p-6 rounded-lg shadow-lg w-full lg:w-2/3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
           {filteredEvents.length > 0 ? (
             <div>
-              <h3 className="font-semibold mb-6 text-2xl text-[#4CAF50]">
-                <FaRegCalendarCheck className="inline mr-2" />
+              <h3 className="text-xl font-semibold text-teal-400 mb-6">
+                <FaRegCalendarCheck className="inline-block mr-2" />
                 Events on {selectedDate.toDateString()}:
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-6">
                 {filteredEvents.map((event, index) => (
                   <li
                     key={index}
-                    className="p-6 bg-[#292929] rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105"
+                    className="p-6 bg-gradient-to-b from-gray-800 to-gray-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                   >
-                    <h4 className="font-semibold text-lg text-[#00bcd4]">{event.name}</h4>
-                    <p className="text-sm text-gray-300">{event.description}</p>
+                    <h4 className="text-lg font-bold text-blue-400">
+                      {event.name}
+                    </h4>
+                    <p className="text-sm text-gray-300 mt-2">{event.description}</p>
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
-            <p className="text-gray-400">No events on this day.</p>
+            <p className="text-gray-400 text-center">
+              No events available for this date.
+            </p>
           )}
-        </div>
+        </motion.div>
       </div>
+
+      {/* Call to Action */}
+      <motion.div
+        className="mt-12 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+      >
+        <button className="py-3 px-8 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          Discover More Events
+        </button>
+      </motion.div>
     </div>
   );
 };
 
 export default CryptoCalendar;
+
+<style jsx global>{`
+  .react-calendar {
+    background-color: #121212 !important; /* Dark background */
+    border-radius: 8px;
+    border: 1px solid #333333;
+    color: #e0e0e0;
+  }
+
+  .react-calendar__tile {
+    background-color: #1d1d1d !important; /* Dark tile background */
+    border-radius: 4px;
+    padding: 10px;
+    font-weight: bold;
+    color: #ffffff !important;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .react-calendar__tile--active {
+    background: linear-gradient(to right, #0062cc, #00bcd4) !important; /* Active tile gradient */
+    color: #ffffff !important;
+  }
+
+  .react-calendar__tile:hover {
+    background: #292929 !important; /* Hover background */
+    transform: scale(1.05);
+  }
+
+  .react-calendar__navigation {
+    background-color: #121212 !important; /* Navigation dark background */
+    color: #00bcd4 !important;
+    font-weight: bold;
+  }
+
+  .react-calendar__navigation button {
+    color: #00bcd4 !important; /* Navigation button color */
+    background: none;
+  }
+
+  .react-calendar__month-view__weekdays {
+    background-color: #121212 !important; /* Weekday names background */
+    color: #00bcd4 !important; /* Weekday names color */
+    font-weight: bold;
+  }
+
+  .react-calendar__month-view__days {
+    background-color: #121212 !important; /* Days grid background */
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #666666 !important; /* Lighter color for neighboring month days */
+  }
+
+  .react-calendar__tile:disabled {
+    background-color: #1d1d1d !important; /* Disabled tile background */
+    color: #555555 !important; /* Disabled tile color */
+  }
+`}</style>
