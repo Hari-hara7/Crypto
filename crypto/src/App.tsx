@@ -11,6 +11,8 @@ import CoinComparison from './components/CoinComparison'; // Import CoinComparis
 import CalendarPage from "./pages/CalendarPage";
 import LearnCrypto from './components/LearnCrypto';
 import Chatbot from './components/CryptoChatbot'; // Import the Chatbot component
+import Auth from "./components/Auth"; // Import Auth component
+import Preferences from "./components/Preferences"; // Import Preferences component
 
 const App: React.FC = () => {
   return (
@@ -30,9 +32,9 @@ const App: React.FC = () => {
             <Route path="/compare" element={<CoinComparison />} /> {/* Add CoinComparison route */}
             <Route path="/calendar" element={<CalendarPage />} />
             <Route path="/learn" element={<LearnCrypto />} />
-            {/* Update this route to show the Chatbot */}
-           
-            <Route path="/chatbot" element={<Chatbot />} />  {/* Add Chatbot route */}
+            <Route path="/chatbot" element={<Chatbot />} /> {/* Add Chatbot route */}
+            <Route path="/auth" element={<Auth />} /> {/* Add Auth route */}
+            <Route path="/preferences" element={<Preferences />} /> {/* Add Preferences route */}
           </Routes>
         </main>
 
