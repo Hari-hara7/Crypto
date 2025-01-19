@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="bg-gradient-to-r from-gray-800 to-black text-white py-4 px-6 flex justify-between items-center">
-      <h1 className="text-2xl font-bold">
+      <h1 className="text-2xl font-bold text-teal-400">
         <Link to="/">Crypto Tracker</Link>
       </h1>
 
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
         ) : (
           <Link
             to="/auth"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-teal-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
           >
             Sign In
           </Link>
@@ -198,7 +198,7 @@ const Header: React.FC = () => {
           ) : (
             <Link
               to="/auth"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              className="text-teal-400 hover:bg-blue-600 text-white px-4 py-2 rounded"
               onClick={toggleMenu}
             >
               Sign In
