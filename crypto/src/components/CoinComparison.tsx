@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FaBitcoin, FaEthereum, FaLitecoin } from "react-icons/fa"; // Importing some icons
-import { motion } from "framer-motion"; // Importing Framer Motion for animations
+import { motion } from "framer-motion";
 
 interface Coin {
   id: string;
   name: string;
   symbol: string;
-  image: string; // Added image field for icon
+  image: string; // Coin image URL
 }
 
 interface CoinData {
@@ -35,14 +34,15 @@ const CoinComparison: React.FC = () => {
           {
             params: {
               vs_currency: "usd",
-              order: "market_cap_desc", // Optional: Order coins by market cap
-              per_page: 50, // Optional: Limit the number of coins shown
+              order: "market_cap_desc",
+              per_page: 50,
             },
           }
         );
         setCoins(response.data);
       } catch (error) {
         console.error("Error fetching coins:", error);
+        setError("Failed to fetch coin list.");
       }
     };
     fetchCoins();
@@ -56,9 +56,9 @@ const CoinComparison: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const coinIds = selectedCoins.map(coin => coin.id).join(",");
+        const coinIds = selectedCoins.map((coin) => coin.id).join(",");
         const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/markets`,
+          "https://api.coingecko.com/api/v3/coins/markets",
           {
             params: {
               vs_currency: "usd",
@@ -79,45 +79,55 @@ const CoinComparison: React.FC = () => {
 
   // Handle coin selection
   const handleSelectCoin = (coin: Coin) => {
-    setSelectedCoins((prev) => {
-      if (prev.some((selectedCoin) => selectedCoin.id === coin.id)) {
-        return prev.filter((selectedCoin) => selectedCoin.id !== coin.id);
-      }
-      return [...prev, coin];
-    });
+    setSelectedCoins((prev) =>
+      prev.some((selectedCoin) => selectedCoin.id === coin.id)
+        ? prev.filter((selectedCoin) => selectedCoin.id !== coin.id)
+        : [...prev, coin]
+    );
   };
 
   // Format numbers for readability
-  const formatNumber = (num: number) => {
-    return num.toLocaleString();
-  };
+  const formatNumber = (num: number) => num.toLocaleString();
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-4xl font-bold text-center mb-8 text-teal-400">Coin Comparison Tool</h1>
+      <h1 className="text-4xl font-bold text-center mb-8 text-teal-400">
+        Cryptocurrency Comparison Tool
+      </h1>
 
-      {/* Coin Selection Buttons - Grid Layout */}
+      {/* Coin Selection Buttons */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-6">
         {coins.map((coin) => (
           <motion.button
             key={coin.id}
             onClick={() => handleSelectCoin(coin)}
-            className={`p-4 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 ${
-              selectedCoins.some((selectedCoin) => selectedCoin.id === coin.id)
-                ? "bg-teal-600 text-white"
+            className={`p-4 rounded-lg shadow-lg transform hover:scale-105 ${
+              selectedCoins.some(
+                (selectedCoin) => selectedCoin.id === coin.id
+              )
+                ? "bg-teal-600"
                 : "bg-gray-800 hover:bg-gray-700"
-            } border border-transparent`}
+            }`}
             whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
           >
-            <img src={coin.image} alt={coin.name} className="w-8 h-8 inline-block mb-2 mx-auto" />
-            <div className="text-center">{coin.name} ({coin.symbol.toUpperCase()})</div>
+            <img
+              src={coin.image}
+              alt={coin.name}
+              className="w-12 h-12 mx-auto mb-2"
+              onError={(e) =>
+                (e.currentTarget.src =
+                  "https://via.placeholder.com/50?text=No+Image")
+              }
+            />
+            <div className="text-center">
+              {coin.name} ({coin.symbol.toUpperCase()})
+            </div>
           </motion.button>
         ))}
       </div>
 
-      {/* Loading/Error Messages */}
-      {loading && <p className="text-center text-gray-400">Loading data...</p>}
+      {/* Loading and Error Messages */}
+      {loading && <p className="text-center text-gray-400">Loading...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
 
       {/* Coin Data Table */}
@@ -129,7 +139,7 @@ const CoinComparison: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
           <table className="table-auto w-full text-left bg-gray-800 rounded-lg">
-            <thead className="bg-gray-700 text-white">
+            <thead className="bg-gray-700">
               <tr>
                 <th className="px-6 py-4 border-b">Cryptocurrency</th>
                 <th className="px-6 py-4 border-b">Price (USD)</th>
@@ -140,12 +150,19 @@ const CoinComparison: React.FC = () => {
             </thead>
             <tbody>
               {coinData.map((coin) => (
-                <tr key={coin.id} className="border-b border-gray-600 hover:bg-gray-700">
+                <tr
+                  key={coin.id}
+                  className="border-b border-gray-600 hover:bg-gray-700"
+                >
                   <td className="px-6 py-4 flex items-center">
                     <img
-                      src={`https://cryptoicons.org/api/icon/${coin.symbol.toLowerCase()}`}
+                      src={coin.image}
                       alt={coin.name}
                       className="w-6 h-6 mr-2"
+                      onError={(e) =>
+                        (e.currentTarget.src =
+                          "https://via.placeholder.com/50?text=No+Image")
+                      }
                     />
                     {coin.name} ({coin.symbol.toUpperCase()})
                   </td>
