@@ -21,6 +21,7 @@
     "dialogflow-fulfillment": "^0.6.1",
     "firebase": "^11.2.0",
     "framer-motion": "^11.18.1",
+    "gsap": "^3.12.7",
     "react": "^18.3.1",
     "react-calendar": "^5.1.0",
     "react-chartjs-2": "^5.3.0",
