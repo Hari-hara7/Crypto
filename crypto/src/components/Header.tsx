@@ -4,6 +4,9 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { getAuth, signOut } from "firebase/auth";
 import { motion } from "framer-motion";
 import { FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { AiOutlineHome, AiOutlineCalculator, AiOutlineCalendar, AiOutlineSetting } from "react-icons/ai";
+import { FaCoins, FaRegNewspaper, FaRobot, FaBook } from "react-icons/fa";
+import { MdCompareArrows } from "react-icons/md";
 
 const Header: React.FC = () => {
   const [user, setUser] = useState<any>(null);
@@ -116,69 +119,33 @@ const Header: React.FC = () => {
             <FiX />
           </button>
 
-          <Link
-            to="/"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Home
-          </Link>
-          <Link
-            to="/coins"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Coins
-          </Link>
-          <Link
-            to="/converter"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Converter
-          </Link>
-          <Link
-            to="/news"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            News
-          </Link>
-          <Link
-            to="/compare"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Compare Coins
-          </Link>
-          <Link
-            to="/calendar"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Crypto Calendar
-          </Link>
-          <Link
-            to="/learn"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Learn Crypto
-          </Link>
-          <Link
-            to="/chatbot"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Chatbot
-          </Link>
-          <Link
-            to="/preferences"
-            className="text-white text-xl"
-            onClick={toggleMenu}
-          >
-            Preferences
-          </Link>
+          <Link to="/" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <AiOutlineHome /> Home
+    </Link>
+    <Link to="/coins" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaCoins /> Coins
+    </Link>
+    <Link to="/converter" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <AiOutlineCalculator /> Converter
+    </Link>
+    <Link to="/news" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaRegNewspaper /> News
+    </Link>
+    <Link to="/compare" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <MdCompareArrows /> Compare Coins
+    </Link>
+    <Link to="/calendar" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <AiOutlineCalendar /> Crypto Calendar
+    </Link>
+    <Link to="/learn" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaBook /> Learn Crypto
+    </Link>
+    <Link to="/chatbot" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaRobot /> Chatbot
+    </Link>
+    <Link to="/preferences" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <AiOutlineSetting /> Preferences
+    </Link>
           {user ? (
             <div className="flex flex-col items-center space-y-4">
               {user.photoURL && (
