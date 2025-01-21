@@ -77,6 +77,9 @@ const Header: React.FC = () => {
         <Link to="/crypto-posts" className="hover:underline">
           post
         </Link>
+        <Link to="/coins-details" className="hover:underline">
+          coins details
+        </Link>
         {user ? (
           <div className="flex items-center space-x-4">
             {user.photoURL && (
@@ -151,6 +154,9 @@ const Header: React.FC = () => {
     </Link>
     <Link to="/crypto-posts" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineSetting /> Posts
+    </Link>
+    <Link to="/coins-details" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaCoins /> coins details
     </Link>
           {user ? (
             <div className="flex flex-col items-center space-y-4">
