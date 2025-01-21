@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../utils/firebaseConfig";
+import { db, auth } from "../utils/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth } from "../utils/firebaseConfig";
 import { FaCoins, FaWallet, FaUserEdit, FaSave } from "react-icons/fa";
 
 const Preferences: React.FC = () => {
@@ -14,14 +13,21 @@ const Preferences: React.FC = () => {
   });
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
+  // Fetch user preferences from Firestore
   useEffect(() => {
     const fetchPreferences = async () => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(userRef);
-        if (docSnap.exists()) {
-          setPreferences(docSnap.data());
+      try {
+        if (user) {
+          const userRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(userRef);
+          if (docSnap.exists()) {
+            setPreferences(docSnap.data());
+          } else {
+            console.log("No preferences found for this user.");
+          }
         }
+      } catch (error) {
+        console.error("Error fetching preferences:", error);
       }
     };
 
@@ -30,15 +36,15 @@ const Preferences: React.FC = () => {
     }
   }, [user]);
 
-  // Check if user is signed in with Google
+  // Check if the user is signed in with Google
   useEffect(() => {
-    if (user && user.providerData[0]?.providerId !== "google.com") {
-      setShowAlert(true); // Show alert if user is not signed in with Google
-    } else {
-      setShowAlert(false); // Hide alert if user is signed in with Google
+    if (user) {
+      const isGoogleUser = user.providerData[0]?.providerId === "google.com";
+      setShowAlert(!isGoogleUser);
     }
   }, [user]);
 
+  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setPreferences((prevState) => ({
@@ -47,11 +53,19 @@ const Preferences: React.FC = () => {
     }));
   };
 
+  // Save preferences to Firestore
   const savePreferences = async () => {
-    if (user) {
-      const userRef = doc(db, "users", user.uid);
-      await setDoc(userRef, preferences, { merge: true });
-      alert("Preferences saved successfully!");
+    try {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        await setDoc(userRef, preferences, { merge: true });
+        alert("Preferences saved successfully!");
+      } else {
+        alert("User not authenticated!");
+      }
+    } catch (error) {
+      console.error("Error saving preferences:", error);
+      alert("An error occurred while saving preferences.");
     }
   };
 

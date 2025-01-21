@@ -13,6 +13,7 @@ import LearnCrypto from './components/LearnCrypto';
 import Chatbot from './components/CryptoChatbot'; // Import the Chatbot component
 import Auth from "./components/Auth"; // Import Auth component
 import Preferences from "./components/Preferences"; // Import Preferences component
+import CryptoPost from './components/CryptoPost'; // Import CryptoPost component
 
 const App: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const App: React.FC = () => {
             <Route path="/chatbot" element={<Chatbot />} /> {/* Add Chatbot route */}
             <Route path="/auth" element={<Auth />} /> {/* Add Auth route */}
             <Route path="/preferences" element={<Preferences />} /> {/* Add Preferences route */}
+            <Route path="/crypto-posts" element={<CryptoPost />} /> {/* Add CryptoPost route */}
           </Routes>
         </main>
 

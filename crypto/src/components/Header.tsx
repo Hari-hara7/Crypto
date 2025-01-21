@@ -74,6 +74,9 @@ const Header: React.FC = () => {
         <Link to="/preferences" className="hover:underline">
           Preferences
         </Link>
+        <Link to="/crypto-posts" className="hover:underline">
+          post
+        </Link>
         {user ? (
           <div className="flex items-center space-x-4">
             {user.photoURL && (
