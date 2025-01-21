@@ -149,6 +149,9 @@ const Header: React.FC = () => {
     <Link to="/preferences" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineSetting /> Preferences
     </Link>
+    <Link to="/crypto-posts" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <AiOutlineSetting /> Posts
+    </Link>
           {user ? (
             <div className="flex flex-col items-center space-y-4">
               {user.photoURL && (
