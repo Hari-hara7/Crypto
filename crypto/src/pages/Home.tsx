@@ -6,8 +6,6 @@ import { loadFull } from "tsparticles";
 import { FiArrowRight, FiInfo } from 'react-icons/fi';
 import { Link } from "react-router-dom";
 
-
-
 const Home: React.FC = () => {
   const particlesInit = async (main: any) => {
     await loadFull(main);
@@ -24,60 +22,54 @@ const Home: React.FC = () => {
     },
   };
 
- 
-
-   
-
   return (
     <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen">
-     
-  {/* Hero Section */}
-<section className="min-h-screen flex items-center justify-center px-6 text-center relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
-  <Particles
-    id="tsparticles"
-    init={particlesInit}
-    options={particlesOptions}
-    className="absolute top-0 left-0 h-full w-full"
-  />
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center px-6 text-center relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+        <Particles
+          id="tsparticles"
+          init={particlesInit}
+          options={particlesOptions}
+          className="absolute top-0 left-0 h-full w-full"
+        />
 
-  <motion.div
-    className="max-w-4xl z-10"
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, ease: "easeOut" }}
-  >
-    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 drop-shadow-lg">
-      Welcome to Crypto World
-    </h1>
-    <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300">
-      Learn, invest, and explore the future of digital currencies.
-    </p>
-
-    <div className="mt-10 flex flex-wrap justify-center gap-6">
-      <Link to="/coins">
-        <motion.button
-          className="flex items-center bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
-          whileHover={{ scale: 1.1 }}
+        <motion.div
+          className="max-w-4xl z-10"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
-          <FiArrowRight className="text-white mr-2" />
-          Get Started
-        </motion.button>
-      </Link>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 drop-shadow-lg">
+            
+            Welcome to Crypto World <FaBitcoin className="inline-block mr-3 text-cyan-500" />
+          </h1>
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300">
+            Learn, invest, and explore the future of digital currencies.
+          </p>
 
-      <Link to="/compare">
-        <motion.button
-          className="flex items-center bg-gray-800 hover:bg-gray-700 text-cyan-400 py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
-          whileHover={{ scale: 1.1 }}
-        >
-          <FiInfo className="text-cyan-400 mr-2" />
-          Learn More
-        </motion.button>
-      </Link>
-    </div>
-  </motion.div>
-</section>
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
+            <Link to="/coins">
+              <motion.button
+                className="flex items-center bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
+                whileHover={{ scale: 1.1 }}
+              >
+                <FiArrowRight className="text-white mr-2" />
+                Get Started
+              </motion.button>
+            </Link>
 
-
+            <Link to="/compare">
+              <motion.button
+                className="flex items-center bg-gray-800 hover:bg-gray-700 text-cyan-400 py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
+                whileHover={{ scale: 1.1 }}
+              >
+                <FiInfo className="text-cyan-400 mr-2" />
+                Learn More
+              </motion.button>
+            </Link>
+          </div>
+        </motion.div>
+      </section>
 
    {/* About Cryptocurrency Section */}
 <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
