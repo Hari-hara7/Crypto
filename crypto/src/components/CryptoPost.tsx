@@ -7,6 +7,8 @@ import {
   onSnapshot,
   updateDoc,
   doc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { FaGoogle, FaPaperPlane, FaBitcoin, FaThumbsUp, FaArrowUp } from "react-icons/fa";
 import { onAuthStateChanged } from "firebase/auth";
@@ -71,6 +73,8 @@ const CryptoPost: React.FC = () => {
         createdAt: new Date().toISOString(),
         likes: 0, // Initialize likes
         upvotes: 0, // Initialize upvotes
+        likedBy: [], // Track users who liked
+        upvotedBy: [], // Track users who upvoted
       });
 
       setTitle("");
@@ -84,27 +88,51 @@ const CryptoPost: React.FC = () => {
 
   // Handle like
   const handleLike = async (postId: string) => {
+    if (!user) {
+      alert("You must be signed in to like posts.");
+      return;
+    }
+
     const postRef = doc(db, "crypto_posts", postId);
-    try {
-      const post = posts.find((post) => post.id === postId);
+    const post = posts.find((post) => post.id === postId);
+
+    if (post.likedBy?.includes(user.uid)) {
+      // Unlike the post if already liked
       await updateDoc(postRef, {
-        likes: (post?.likes || 0) + 1,
+        likes: (post.likes || 0) - 1,
+        likedBy: arrayRemove(user.uid),
       });
-    } catch (error) {
-      console.error("Error updating likes:", error);
+    } else {
+      // Like the post
+      await updateDoc(postRef, {
+        likes: (post.likes || 0) + 1,
+        likedBy: arrayUnion(user.uid),
+      });
     }
   };
 
   // Handle upvote
   const handleUpvote = async (postId: string) => {
+    if (!user) {
+      alert("You must be signed in to upvote posts.");
+      return;
+    }
+
     const postRef = doc(db, "crypto_posts", postId);
-    try {
-      const post = posts.find((post) => post.id === postId);
+    const post = posts.find((post) => post.id === postId);
+
+    if (post.upvotedBy?.includes(user.uid)) {
+      // Remove upvote if already upvoted
       await updateDoc(postRef, {
-        upvotes: (post?.upvotes || 0) + 1,
+        upvotes: (post.upvotes || 0) - 1,
+        upvotedBy: arrayRemove(user.uid),
       });
-    } catch (error) {
-      console.error("Error updating upvotes:", error);
+    } else {
+      // Add upvote
+      await updateDoc(postRef, {
+        upvotes: (post.upvotes || 0) + 1,
+        upvotedBy: arrayUnion(user.uid),
+      });
     }
   };
 
@@ -178,7 +206,6 @@ const CryptoPost: React.FC = () => {
                   className="p-4 bg-gray-700 rounded-lg shadow-md"
                 >
                   <div className="flex items-center mb-2">
-                    {/* Display the user profile image or default avatar */}
                     <img
                       src={post.author.photoURL}
                       alt={post.author.name}
@@ -197,13 +224,21 @@ const CryptoPost: React.FC = () => {
                   <div className="flex items-center mt-4 space-x-4">
                     <button
                       onClick={() => handleLike(post.id)}
-                      className="flex items-center text-yellow-400 hover:text-yellow-500 transition duration-200"
+                      className={`flex items-center ${
+                        post.likedBy?.includes(user?.uid)
+                          ? "text-yellow-500"
+                          : "text-yellow-400"
+                      } hover:text-yellow-500 transition duration-200`}
                     >
                       <FaThumbsUp className="mr-1" /> {post.likes || 0} Likes
                     </button>
                     <button
                       onClick={() => handleUpvote(post.id)}
-                      className="flex items-center text-blue-400 hover:text-blue-500 transition duration-200"
+                      className={`flex items-center ${
+                        post.upvotedBy?.includes(user?.uid)
+                          ? "text-blue-500"
+                          : "text-blue-400"
+                      } hover:text-blue-500 transition duration-200`}
                     >
                       <FaArrowUp className="mr-1" /> {post.upvotes || 0} Upvotes
                     </button>
