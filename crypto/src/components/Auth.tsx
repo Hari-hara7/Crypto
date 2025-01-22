@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleProvider, signInWithPopup, signOut } from "../utils/firebaseConfig";
-import { FaGoogle, FaUserAlt, FaEnvelope, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa"; // Additional icons for sign-out
+import { FaGoogle, FaUserAlt, FaEnvelope, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
 
 const Auth: React.FC = () => {
   const [user, setUser] = useState(auth.currentUser);
 
-  // Google Login
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -15,7 +14,6 @@ const Auth: React.FC = () => {
     }
   };
 
-  // Logout
   const logout = async () => {
     try {
       await signOut(auth);
@@ -25,7 +23,6 @@ const Auth: React.FC = () => {
     }
   };
 
-  // Fetching user creation date
   const formatDate = (date: any) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -43,36 +40,35 @@ const Auth: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-      <div className="bg-gray-800 shadow-lg rounded-lg p-8 w-80 md:w-96">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
+      <div className="bg-gradient-to-r from-gray-800 to-gray-900 shadow-2xl rounded-2xl p-8 w-80 md:w-96 transform transition-all duration-500 hover:scale-105">
         {user ? (
           <div className="flex flex-col items-center">
             {/* User Avatar */}
             <img
               src={user.photoURL || ""}
               alt="User Avatar"
-              className="w-24 h-24 rounded-full shadow-md border-2 border-teal-500 mb-4"
+              className="w-24 h-24 rounded-full shadow-lg border-4 border-teal-500 mb-6 transition duration-300 hover:scale-110"
             />
-            <p className="text-2xl font-semibold text-gray-100 mb-4">
+            <p className="text-2xl font-bold text-gray-100 mb-4">
               Welcome, {user.displayName}
             </p>
 
-            {/* Enhanced Welcome Message */}
             <p className="text-center text-gray-300 text-sm mb-6">
-              You are now connected with <strong>Crypto Tracker</strong> — the ultimate platform to track and analyze cryptocurrency prices, market trends, news, and more! We're glad to have you join our community of crypto enthusiasts.
+              You are now connected with <strong>Crypto Tracker</strong> — explore cryptocurrency trends, market insights, and more!
             </p>
 
             {/* User Information */}
-            <div className="text-gray-300 text-sm mb-4 space-y-2">
-              <div className="flex items-center space-x-2">
+            <div className="text-gray-400 text-sm mb-6 space-y-2 w-full">
+              <div className="flex items-center space-x-3">
                 <FaUserAlt />
                 <span>{user.displayName}</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <FaEnvelope />
                 <span>{user.email}</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <FaCalendarAlt />
                 <span>Joined: {formatDate(user.metadata.creationTime)}</span>
               </div>
@@ -81,23 +77,23 @@ const Auth: React.FC = () => {
             {/* Logout Button */}
             <button
               onClick={logout}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-md transition duration-300 w-full mt-4 flex items-center justify-center"
+              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full shadow-lg w-full flex items-center justify-center space-x-2 transform transition duration-300 hover:scale-105"
             >
-              <FaSignOutAlt className="mr-2" />
-              Logout
+              <FaSignOutAlt />
+              <span>Logout</span>
             </button>
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <p className="text-xl font-medium text-gray-400 mb-6">
-              Sign in to access your account and start exploring the world of cryptocurrency!
+            <p className="text-xl font-semibold text-gray-400 mb-6 text-center">
+              Sign in to explore and track cryptocurrency trends!
             </p>
             <button
               onClick={loginWithGoogle}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md flex items-center justify-center transition duration-300 w-full"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg w-full flex items-center justify-center space-x-2 transform transition duration-300 hover:scale-105"
             >
-              <FaGoogle className="w-5 h-5 mr-2" />
-              Login with Google
+              <FaGoogle className="w-5 h-5" />
+              <span>Login with Google</span>
             </button>
           </div>
         )}
