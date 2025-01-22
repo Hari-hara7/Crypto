@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../utils/firebaseConfig";
-import { collection, addDoc, query, onSnapshot } from "firebase/firestore";
-import { FaGoogle, FaPaperPlane, FaBitcoin } from "react-icons/fa";
+import {
+  collection,
+  addDoc,
+  query,
+  onSnapshot,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { FaGoogle, FaPaperPlane, FaBitcoin, FaThumbsUp, FaArrowUp } from "react-icons/fa";
 import { onAuthStateChanged } from "firebase/auth";
 
 const CryptoPost: React.FC = () => {
@@ -59,9 +66,11 @@ const CryptoPost: React.FC = () => {
         author: {
           name: user?.displayName || "Anonymous",
           email: user?.email,
-          photoURL: user?.photoURL || "default-avatar-url.jpg", // Add the photo URL to the post data
+          photoURL: user?.photoURL || "default-avatar-url.jpg",
         },
         createdAt: new Date().toISOString(),
+        likes: 0, // Initialize likes
+        upvotes: 0, // Initialize upvotes
       });
 
       setTitle("");
@@ -70,6 +79,32 @@ const CryptoPost: React.FC = () => {
     } catch (error) {
       console.error("Error submitting post:", error);
       alert("An error occurred while submitting the post.");
+    }
+  };
+
+  // Handle like
+  const handleLike = async (postId: string) => {
+    const postRef = doc(db, "crypto_posts", postId);
+    try {
+      const post = posts.find((post) => post.id === postId);
+      await updateDoc(postRef, {
+        likes: (post?.likes || 0) + 1,
+      });
+    } catch (error) {
+      console.error("Error updating likes:", error);
+    }
+  };
+
+  // Handle upvote
+  const handleUpvote = async (postId: string) => {
+    const postRef = doc(db, "crypto_posts", postId);
+    try {
+      const post = posts.find((post) => post.id === postId);
+      await updateDoc(postRef, {
+        upvotes: (post?.upvotes || 0) + 1,
+      });
+    } catch (error) {
+      console.error("Error updating upvotes:", error);
     }
   };
 
@@ -157,6 +192,22 @@ const CryptoPost: React.FC = () => {
                   <p className="text-xs text-gray-500 mt-2">
                     Posted on: {new Date(post.createdAt).toLocaleString()}
                   </p>
+
+                  {/* Like and Upvote Buttons */}
+                  <div className="flex items-center mt-4 space-x-4">
+                    <button
+                      onClick={() => handleLike(post.id)}
+                      className="flex items-center text-yellow-400 hover:text-yellow-500 transition duration-200"
+                    >
+                      <FaThumbsUp className="mr-1" /> {post.likes || 0} Likes
+                    </button>
+                    <button
+                      onClick={() => handleUpvote(post.id)}
+                      className="flex items-center text-blue-400 hover:text-blue-500 transition duration-200"
+                    >
+                      <FaArrowUp className="mr-1" /> {post.upvotes || 0} Upvotes
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
