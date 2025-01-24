@@ -15,6 +15,7 @@ import Auth from "./components/Auth"; // Import Auth component
 import Preferences from "./components/Preferences"; // Import Preferences component
 import CryptoPost from './components/CryptoPost';
 import CoinList from './components/CoinList'; // Import CryptoPost component
+import CryptoNotification from "./components/CryptoNotification";
 
 const App: React.FC = () => {
   return (
@@ -39,6 +40,7 @@ const App: React.FC = () => {
             <Route path="/preferences" element={<Preferences />} /> {/* Add Preferences route */}
             <Route path="/crypto-posts" element={<CryptoPost />} /> {/* Add CryptoPost route */}
             <Route path="/coins-details" element={<CoinList />} /> {/* Add CryptoPost route */}
+            <Route path="/notifications" element={<CryptoNotification />} />
            
           </Routes>
         </main>
