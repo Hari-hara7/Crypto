@@ -172,7 +172,7 @@ const Header: React.FC = () => {
       <FaCoins /> coins details
     </Link>
     <Link to="/notifications" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
-      <FaCoins /> coins details
+      <FaCoins /> Live Notifications
     </Link>
           {user ? (
             <div className="flex flex-col items-center space-y-4">
