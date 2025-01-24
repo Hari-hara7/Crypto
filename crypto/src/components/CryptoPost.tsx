@@ -162,168 +162,169 @@ const CryptoPost: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex justify-center items-center">
-      <div className="p-6 bg-gray-800 rounded-lg shadow-lg max-w-3xl w-full mx-4">
-        <h1 className="text-2xl font-bold text-center mb-6 flex items-center justify-center">
-          <FaBitcoin className="text-yellow-400 mr-2" /> Crypto Posts
-        </h1>
-
-        {/* Alert for non-Google users */}
-        {showAlert && (
-          <div className="bg-red-500 text-white p-4 mb-4 rounded-lg">
-            <strong>Alert:</strong> Only Google-signed-in users can post about cryptocurrency.
-          </div>
-        )}
-
-        {/* Post Form */}
-        {user && !showAlert && (
-          <form onSubmit={handlePostSubmit} className="space-y-4">
-            <div className="form-group">
-              <label htmlFor="title" className="block text-lg mb-1">
-                Post Title:
-              </label>
-              <input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="p-3 w-full bg-gray-700 text-white rounded-lg"
-                placeholder="Enter the post title"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="content" className="block text-lg mb-1">
-                Post Content:
-              </label>
-              <textarea
-                id="content"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="p-3 w-full bg-gray-700 text-white rounded-lg"
-                rows={5}
-                placeholder="Write about cryptocurrency here..."
-              />
-            </div>
-
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="p-3 bg-blue-600 text-white rounded-lg flex items-center hover:bg-blue-700"
-              >
-                <FaPaperPlane className="mr-2" /> Submit Post
-              </button>
-            </div>
-          </form>
-        )}
-
-        {/* Display Posts */}
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold mb-4 flex items-center">
-            <FaBitcoin className="mr-2 text-yellow-400" /> Latest Posts:
-          </h2>
-
-          {posts.length > 0 ? (
-            <div className="space-y-4">
-              {posts.map((post) => (
-                <div key={post.id} className="p-4 bg-gray-700 rounded-lg shadow-md">
-                  <div className="flex items-center mb-2">
-                    <img
-                      src={post.author.photoURL}
-                      alt={post.author.name}
-                      className="w-10 h-10 rounded-full mr-2"
-                    />
-                    <span className="font-bold">{post.author.name}</span>
-                  </div>
-                  <h3 className="text-xl font-bold">{post.title}</h3>
-                  <p>{post.content}</p>
-                  <div className="mt-4 space-x-4">
-                    <button
-                      onClick={() => handleLike(post.id)}
-                      className={`flex items-center ${
-                        post.likedBy?.includes(user?.uid)
-                          ? "text-yellow-500"
-                          : "text-yellow-400"
-                      } hover:text-yellow-500`}
-                    >
-                      <FaThumbsUp className="mr-1" /> {post.likes || 0} Likes
-                    </button>
-                    <button
-                      onClick={() => handleUpvote(post.id)}
-                      className={`flex items-center ${
-                        post.upvotedBy?.includes(user?.uid)
-                          ? "text-blue-500"
-                          : "text-blue-400"
-                      } hover:text-blue-500`}
-                    >
-                      <FaArrowUp className="mr-1" /> {post.upvotes || 0} Upvotes
-                    </button>
-                  </div>
-
-                  {/* Comments Section */}
-                  <div className="mt-4">
-                    <h4 className="text-lg font-bold mb-2">
-                      <FaComment className="mr-2" /> Comments:
-                    </h4>
-
-                    {post.comments?.length > 0 ? (
-                      <ul className="space-y-2">
-                        {post.comments.map((comment: any, index: number) => (
-                          <li
-                            key={index}
-                            className="bg-gray-800 p-3 rounded-lg flex items-center space-x-3"
-                          >
-                            <img
-                              src={comment.author.photoURL}
-                              alt={comment.author.name}
-                              className="w-8 h-8 rounded-full"
-                            />
-                            <div>
-                              <p className="font-bold">{comment.author.name}</p>
-                              <p>{comment.text}</p>
-                              <span className="text-xs text-gray-400">
-                                {new Date(comment.createdAt).toLocaleString()}
-                              </span>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-gray-400">No comments yet.</p>
-                    )}
-
-                    {/* Add Comment */}
-                    {user && (
-                      <div className="mt-4">
-                        <textarea
-                          value={commentText[post.id] || ""}
-                          onChange={(e) =>
-                            setCommentText((prev) => ({
-                              ...prev,
-                              [post.id]: e.target.value,
-                            }))
-                          }
-                          placeholder="Add a comment..."
-                          className="w-full bg-gray-800 text-white rounded-lg p-2 mb-2"
-                        />
-                        <button
-                          onClick={() => handleCommentSubmit(post.id)}
-                          className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                        >
-                          Submit Comment
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-400">No posts available yet.</p>
-          )}
+    <div className="min-h-screen bg-gradient-to-b from-teal-900 via-black to-gray-900 text-white flex justify-center items-center">
+    <div className="p-6 bg-gray-800 rounded-xl shadow-xl max-w-3xl w-full mx-4">
+      <h1 className="text-3xl font-extrabold text-center mb-8 flex items-center justify-center text-yellow-400">
+        <FaBitcoin className="mr-2 animate-bounce" /> Crypto Posts
+      </h1>
+  
+      {/* Alert for non-Google users */}
+      {showAlert && (
+        <div className="bg-red-600 text-white p-4 mb-6 rounded-lg shadow-md">
+          <strong>Alert:</strong> Only Google-signed-in users can post about cryptocurrency.
         </div>
+      )}
+  
+      {/* Post Form */}
+      {user && !showAlert && (
+        <form onSubmit={handlePostSubmit} className="space-y-6">
+          <div className="form-group">
+            <label htmlFor="title" className="block text-lg font-semibold mb-2">
+              Post Title:
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="p-4 w-full bg-gray-700 text-white rounded-lg shadow-inner focus:ring-2 focus:ring-yellow-400 outline-none"
+              placeholder="Enter the post title"
+            />
+          </div>
+  
+          <div className="form-group">
+            <label htmlFor="content" className="block text-lg font-semibold mb-2">
+              Post Content:
+            </label>
+            <textarea
+              id="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="p-4 w-full bg-gray-700 text-white rounded-lg shadow-inner focus:ring-2 focus:ring-yellow-400 outline-none"
+              rows={5}
+              placeholder="Write about cryptocurrency here..."
+            />
+          </div>
+  
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="p-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-md transform transition-transform duration-200 hover:scale-105"
+            >
+              <FaPaperPlane className="mr-2" /> Submit Post
+            </button>
+          </div>
+        </form>
+      )}
+  
+      {/* Display Posts */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center">
+          <FaBitcoin className="mr-2 text-yellow-400" /> Latest Posts:
+        </h2>
+  
+        {posts.length > 0 ? (
+          <div className="space-y-6">
+            {posts.map((post) => (
+              <div key={post.id} className="p-6 bg-gray-700 rounded-lg shadow-lg">
+                <div className="flex items-center mb-3">
+                  <img
+                    src={post.author.photoURL}
+                    alt={post.author.name}
+                    className="w-12 h-12 rounded-full mr-3"
+                  />
+                  <span className="font-bold text-lg">{post.author.name}</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{post.title}</h3>
+                <p className="mb-4 text-gray-300">{post.content}</p>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => handleLike(post.id)}
+                    className={`flex items-center p-2 rounded-lg ${
+                      post.likedBy?.includes(user?.uid)
+                        ? "text-yellow-500"
+                        : "text-yellow-400"
+                    } hover:bg-yellow-800`}
+                  >
+                    <FaThumbsUp className="mr-1" /> {post.likes || 0} Likes
+                  </button>
+                  <button
+                    onClick={() => handleUpvote(post.id)}
+                    className={`flex items-center p-2 rounded-lg ${
+                      post.upvotedBy?.includes(user?.uid)
+                        ? "text-blue-500"
+                        : "text-blue-400"
+                    } hover:bg-blue-800`}
+                  >
+                    <FaArrowUp className="mr-1" /> {post.upvotes || 0} Upvotes
+                  </button>
+                </div>
+  
+                {/* Comments Section */}
+                <div className="mt-6">
+                  <h4 className="text-lg font-bold mb-3">
+                    <FaComment className="mr-2" /> Comments:
+                  </h4>
+  
+                  {post.comments?.length > 0 ? (
+                    <ul className="space-y-3">
+                      {post.comments.map((comment: any, index: number) => (
+                        <li
+                          key={index}
+                          className="p-4 bg-gray-800 rounded-lg flex items-center space-x-3"
+                        >
+                          <img
+                            src={comment.author.photoURL}
+                            alt={comment.author.name}
+                            className="w-10 h-10 rounded-full"
+                          />
+                          <div>
+                            <p className="font-bold">{comment.author.name}</p>
+                            <p>{comment.text}</p>
+                            <span className="text-xs text-gray-500">
+                              {new Date(comment.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-400">No comments yet.</p>
+                  )}
+  
+                  {/* Add Comment */}
+                  {user && (
+                    <div className="mt-4">
+                      <textarea
+                        value={commentText[post.id] || ""}
+                        onChange={(e) =>
+                          setCommentText((prev) => ({
+                            ...prev,
+                            [post.id]: e.target.value,
+                          }))
+                        }
+                        placeholder="Add a comment..."
+                        className="w-full bg-gray-800 text-white rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none mb-2"
+                      />
+                      <button
+                        onClick={() => handleCommentSubmit(post.id)}
+                        className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                      >
+                        Submit Comment
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-400">No posts available yet.</p>
+        )}
       </div>
     </div>
+  </div>
+  
   );
 };
 

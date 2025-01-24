@@ -5,6 +5,8 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { FiArrowRight, FiInfo } from 'react-icons/fi';
 import { Link } from "react-router-dom";
+import cryptoImage from '../assets/crypto.webp';//crypto/src/assets/crypto.webp
+import cryptoImage1 from '../assets/crypto1.png';//crypto/src/assets/crypto.webpcrypto/src/assets/crypto1.png
 
 const Home: React.FC = () => {
   const particlesInit = async (main: any) => {
@@ -71,53 +73,127 @@ const Home: React.FC = () => {
         </motion.div>
       </section>
 
-   {/* About Cryptocurrency Section */}
+      {/* About Cryptocurrency Section with Image */}
 <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-16">
+        {/* Text Content */}
+        <div>
+          <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
+            Understanding <span className="text-teal-400">Cryptocurrency</span>
+          </h2>
+          <p className="text-gray-300 text-lg leading-relaxed mb-6">
+            Cryptocurrency is a groundbreaking digital currency that leverages 
+            <span className="text-teal-400"> blockchain technology</span> to operate securely and 
+            independently of centralized financial institutions. It provides a borderless, transparent, 
+            and efficient way to exchange value globally.
+          </p>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            By combining cryptographic security with decentralized systems, cryptocurrencies are 
+            reshaping the financial landscape, offering unprecedented opportunities for 
+            <span className="text-teal-400"> innovation</span> and empowerment.
+          </p>
+          <button className="mt-8 px-6 py-3 text-lg font-medium text-white bg-teal-500 rounded-lg shadow-lg hover:bg-teal-400 transition-colors duration-300">
+            Learn More
+          </button>
+        </div>
+
+        {/* Image Section */}
+        <div className="relative">
+          <div className="absolute -top-10 -left-10 w-80 h-80 bg-teal-500 blur-xl rounded-full opacity-20"></div>
+          <img
+            src={cryptoImage}
+            alt="Cryptocurrency Illustration"
+            className="relative z-10 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-600 blur-2xl rounded-full opacity-20"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-16">
+        {/* Image Section */}
+        <div className="relative">
+          <div className="absolute -top-10 -left-10 w-80 h-80 bg-teal-500 blur-xl rounded-full opacity-20"></div>
+          <img
+            src={cryptoImage1}
+            alt="Cryptocurrency Illustration"
+            className="relative z-10 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-600 blur-2xl rounded-full opacity-20"></div>
+        </div>
+
+        {/* Text Content */}
+        <div>
+          <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
+            Why <span className="text-teal-400">Blockchain</span> is the Future of Finance
+          </h2>
+          <p className="text-gray-300 text-lg leading-relaxed mb-6">
+            Blockchain is the revolutionary technology behind cryptocurrencies, offering a 
+            decentralized, immutable ledger that ensures trust, transparency, and security in every transaction.
+            It eliminates the need for traditional intermediaries, lowering transaction costs, and reducing the 
+            potential for fraud.
+          </p>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            Beyond cryptocurrencies, blockchain has the potential to transform industries such as supply chain, 
+            healthcare, finance, and more. Its applications are limitless, and the potential for growth in this 
+            space is vast, making it an exciting area to explore and invest in.
+          </p>
+          <button className="mt-8 px-6 py-3 text-lg font-medium text-white bg-teal-500 rounded-lg shadow-lg hover:bg-teal-400 transition-colors duration-300">
+            Discover Blockchain
+          </button>
+        </div>
+      </div>
+    </section>
+
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <motion.h2
-    className="text-4xl font-extrabold text-center text-cyan-400 mb-16 drop-shadow-lg"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
+    className="text-5xl font-extrabold text-center text-teal-400 mb-12 drop-shadow-lg"
+    initial={{ opacity: 0, y: -20 }}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
   >
     What is Cryptocurrency?
   </motion.h2>
-  <div className="max-w-5xl mx-auto text-center text-gray-300 leading-relaxed">
-    <p className="text-lg mb-6">
-      Cryptocurrency is a decentralized digital currency secured by cryptography, 
+  <div className="max-w-6xl mx-auto text-center text-gray-300 leading-relaxed px-4">
+    <p className="text-xl mb-8">
+      Cryptocurrency is a decentralized digital currency secured by cryptography,
       making it nearly impossible to counterfeit or double-spend.
     </p>
-    <p className="text-lg">
-      It operates on blockchain technology, enabling transparent and secure 
+    <p className="text-xl">
+      It operates on blockchain technology, enabling transparent and secure
       transactions worldwide.
     </p>
   </div>
 </section>
 
+
 {/* Market Trends Section */}
-<section className="py-20 px-6 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-900">
+<section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <motion.h2
-    className="text-4xl font-extrabold text-center text-cyan-400 mb-16 drop-shadow-lg"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
+    className="text-5xl font-extrabold text-center text-teal-400 mb-16 drop-shadow-lg"
+    initial={{ opacity: 0, y: -20 }}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
   >
     Market Trends
   </motion.h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
     <MarketCard
-      icon={<FaBitcoin className="text-cyan-400 text-5xl" />}
+      icon={<FaBitcoin className="text-teal-400 text-6xl mb-4" />}
       title="Bitcoin"
       description="The largest and most well-known cryptocurrency with a growing market value."
     />
     <MarketCard
-      icon={<FaWallet className="text-cyan-400 text-5xl" />}
+      icon={<FaWallet className="text-teal-400 text-6xl mb-4" />}
       title="Ethereum"
       description="A leading blockchain platform powering smart contracts and DApps."
     />
     <MarketCard
-      icon={<FaGlobe className="text-cyan-400 text-5xl" />}
+      icon={<FaGlobe className="text-teal-400 text-6xl mb-4" />}
       title="Altcoins"
       description="Emerging alternatives to Bitcoin with unique features and potential."
     />
@@ -125,10 +201,11 @@ const Home: React.FC = () => {
 </section>
 
 
+
      {/* Benefits of Cryptocurrency Section */}
 <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <motion.h2
-    className="text-4xl font-extrabold text-center text-cyan-400 mb-16 drop-shadow-lg"
+    className="text-4xl font-extrabold text-center text-teal-400 mb-16 drop-shadow-lg"
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}
@@ -138,27 +215,38 @@ const Home: React.FC = () => {
   </motion.h2>
 
   {/* Features Grid */}
-  <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-    <FeatureCard
-      icon={<FaShieldAlt className="text-cyan-400 text-5xl" />}
-      title="Secure Transactions"
-      description="Blockchain ensures secure, transparent, and tamper-proof transactions."
-      bg="bg-gray-800"
-    />
-    <FeatureCard
-      icon={<FaBitcoin className="text-cyan-400 text-5xl" />}
-      title="Decentralized"
-      description="Eliminates the need for intermediaries, offering direct peer-to-peer interactions."
-      bg="bg-gray-800"
-    />
-    <FeatureCard
-      icon={<FaGlobe className="text-cyan-400 text-5xl" />}
-      title="Global Reach"
-      description="Cryptocurrencies enable borderless transactions across the world."
-      bg="bg-gray-800"
-    />
+  {/* Features Grid */}
+<div className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+  <div className="max-w-7xl mx-auto px-6">
+    <h2 className="text-4xl font-bold text-center text-white mb-12">
+      Key <span className="text-teal-400">Features</span>
+    </h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <FeatureCard
+        icon={<FaShieldAlt className="text-teal-400 text-6xl mb-4" />}
+        title="Secure Transactions"
+        description="Blockchain ensures secure, transparent, and tamper-proof transactions."
+        bg="bg-gray-800"
+      />
+      <FeatureCard
+        icon={<FaBitcoin className="text-teal-400 text-6xl mb-4" />}
+        title="Decentralized"
+        description="Eliminates the need for intermediaries, offering direct peer-to-peer interactions."
+        bg="bg-gray-800"
+      />
+      <FeatureCard
+        icon={<FaGlobe className="text-teal-400 text-6xl mb-4" />}
+        title="Global Reach"
+        description="Cryptocurrencies enable borderless transactions across the world."
+        bg="bg-gray-800"
+      />
+    </div>
   </div>
+</div>
+
 </section>
+
+
 
 
       {/* Call to Action Section */}
