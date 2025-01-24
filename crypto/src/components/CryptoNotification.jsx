@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
+import notificationIcon from "../assets/Screenshot 2025-01-19 183430.png";//crypto/src/assets/Screenshot 2025-01-19 183430.png
 
 const socket = io("https://crypto-i38w.onrender.com"); 
 
@@ -14,12 +15,12 @@ const CryptoNotification = () => {
     }
   }, []);
 
-  // Send browser notifications
-  const sendNotification = (title, body) => {
+ // Send browser notifications
+ const sendNotification = (title, body) => {
     if (Notification.permission === "granted") {
       new Notification(title, {
         body,
-        icon: "/icon.png", // Replace with a path to your notification icon
+        icon: notificationIcon, // Use imported image as notification icon
       });
     }
   };
