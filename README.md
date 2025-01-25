@@ -32,6 +32,9 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 | Tech                              | Icon                                                                                 | Purpose                                      |  
 |-----------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------|  
 | **Firebase**                      | ![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?logo=firebase&logoColor=black) | Authentication and database services      |  
+| **Socket.IO**                     | ![Socket.IO](https://img.shields.io/badge/-Socket.IO-010101?logo=socket.io&logoColor=white) | Real-time, bidirectional communication      |  
+| **Node.js**                       | ![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white) | Server-side JavaScript runtime environment |  
+| **Express**                       | ![Express](https://img.shields.io/badge/-Express-000000?logo=express&logoColor=white) | Web application framework for Node.js      |  
 
 ---
 
