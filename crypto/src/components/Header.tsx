@@ -63,33 +63,37 @@ const Header: React.FC = () => {
         <Link to="/coins" className="hover:underline">
           Coins
         </Link>
-        <Link to="/converter" className="hover:underline">
-          Converter
-        </Link>
-        <Link to="/news" className="hover:underline">
-          News
+        <Link to="/coins-details" className="hover:underline">
+          coins details
         </Link>
         <Link to="/compare" className="hover:underline">
           Compare Coins
         </Link>
+        
+        <Link to="/chatbot" className="hover:underline">
+          GPT
+        </Link>
+        <Link to="/news" className="hover:underline">
+          News
+        </Link>
+        <Link to="/converter" className="hover:underline">
+          Converter
+        </Link>
+        
         <Link to="/calendar" className="hover:underline">
           Crypto Calendar
         </Link>
         <Link to="/learn" className="hover:underline">
           Learn Crypto
         </Link>
-        <Link to="/chatbot" className="hover:underline">
-          Chatbot
-        </Link>
+       
         <Link to="/preferences" className="hover:underline">
           Preferences
         </Link>
         <Link to="/crypto-posts" className="hover:underline">
           post
         </Link>
-        <Link to="/coins-details" className="hover:underline">
-          coins details
-        </Link>
+      
         <Link to="/notifications" className="hover:underline">
           Notifications
         </Link>
@@ -144,33 +148,33 @@ const Header: React.FC = () => {
     <Link to="/coins" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <FaCoins /> Coins
     </Link>
+    <Link to="/coins-details" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaCoins /> coins details
+    </Link>
+    <Link to="/chatbot" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaRobot /> Gpt
+    </Link>
     <Link to="/converter" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineCalculator /> Converter
     </Link>
     <Link to="/news" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <FaRegNewspaper /> News
     </Link>
-    <Link to="/compare" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
-      <MdCompareArrows /> Compare Coins
-    </Link>
+
     <Link to="/calendar" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineCalendar /> Crypto Calendar
     </Link>
     <Link to="/learn" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <FaBook /> Learn Crypto
     </Link>
-    <Link to="/chatbot" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
-      <FaRobot /> Chatbot
-    </Link>
+  
     <Link to="/preferences" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineSetting /> Preferences
     </Link>
     <Link to="/crypto-posts" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineSetting /> Posts
     </Link>
-    <Link to="/coins-details" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
-      <FaCoins /> coins details
-    </Link>
+  
     <Link to="/notifications" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <FaCoins /> Live Notifications
     </Link>
