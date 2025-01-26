@@ -48,28 +48,29 @@ const Home: React.FC = () => {
           <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300">
             Learn, invest, and explore the future of digital currencies.
           </p>
+          <div className="mt-10 flex flex-wrap sm:flex-nowrap justify-center gap-4">
+  <Link to="/coins">
+    <motion.button
+      className="flex items-center justify-center bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 hover:from-teal-600 hover:to-cyan-600 text-white py-2 sm:py-3 px-6 sm:px-8 rounded-md text-sm sm:text-base font-medium shadow-md transition duration-300 transform hover:scale-105 gap-2"
+      whileHover={{ scale: 1.1 }}
+    >
+      <FiArrowRight className="text-white" />
+      Get Started
+    </motion.button>
+  </Link>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-6">
-            <Link to="/coins">
-              <motion.button
-                className="flex items-center bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
-                whileHover={{ scale: 1.1 }}
-              >
-                <FiArrowRight className="text-white mr-2" />
-                Get Started
-              </motion.button>
-            </Link>
+  <Link to="/compare">
+    <motion.button
+      className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-cyan-400 py-2 sm:py-3 px-6 sm:px-8 rounded-md text-sm sm:text-base font-medium shadow-md transition duration-300 transform hover:scale-105 gap-2"
+      whileHover={{ scale: 1.1 }}
+    >
+      <FiInfo className="text-cyan-400" />
+      Learn More
+    </motion.button>
+  </Link>
+</div>
 
-            <Link to="/compare">
-              <motion.button
-                className="flex items-center bg-gray-800 hover:bg-gray-700 text-cyan-400 py-3 px-8 rounded-lg text-base sm:text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105 gap-2"
-                whileHover={{ scale: 1.1 }}
-              >
-                <FiInfo className="text-cyan-400 mr-2" />
-                Learn More
-              </motion.button>
-            </Link>
-          </div>
+
         </motion.div>
       </section>
 
@@ -147,9 +148,9 @@ const Home: React.FC = () => {
       </div>
     </section>
 
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+    <section className="py-20 px-6 sm:py-24 sm:px-8 lg:py-32 lg:px-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <motion.h2
-    className="text-5xl font-extrabold text-center text-teal-400 mb-12 drop-shadow-lg"
+    className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center text-teal-400 mb-8 sm:mb-12 drop-shadow-lg"
     initial={{ opacity: 0, y: -20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -157,17 +158,18 @@ const Home: React.FC = () => {
   >
     What is Cryptocurrency?
   </motion.h2>
-  <div className="max-w-6xl mx-auto text-center text-gray-300 leading-relaxed px-4">
-    <p className="text-xl mb-8">
+  <div className="max-w-6xl mx-auto text-center text-gray-300 leading-relaxed px-4 sm:px-6 lg:px-8">
+    <p className="text-lg sm:text-xl lg:text-2xl mb-6 sm:mb-8">
       Cryptocurrency is a decentralized digital currency secured by cryptography,
       making it nearly impossible to counterfeit or double-spend.
     </p>
-    <p className="text-xl">
+    <p className="text-lg sm:text-xl lg:text-2xl">
       It operates on blockchain technology, enabling transparent and secure
       transactions worldwide.
     </p>
   </div>
 </section>
+
 
 
 {/* Market Trends Section */}
