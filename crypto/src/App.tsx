@@ -1,4 +1,4 @@
-// src/App.tsx
+
 
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,20 +18,20 @@ import Preferences from "./components/Preferences";
 import CryptoPost from './components/CryptoPost';
 import CoinList from './components/CoinList'; 
 import CryptoNotification from "./components/CryptoNotification";
-import PriceHistoryPage from "./pages/PriceHistoryPage";  // Import your new page
+import PriceHistoryPage from "./pages/PriceHistoryPage";  
 import History from "./pages/History";
 
 const App: React.FC = () => {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        {/* Header */}
+        
         <Header />
 
-        {/* Main Content */}
+      
         <main className="flex-grow">
           <Routes>
-            {/* Existing routes */}
+            
             <Route path="/" element={<Home />} />
             <Route path="/coins" element={<Coins />} />
             <Route path="/converter" element={<Converter />} />
@@ -52,7 +52,7 @@ const App: React.FC = () => {
           </Routes>
         </main>
 
-        {/* Footer */}
+        
         <Footer />
       </div>
     </Router>
