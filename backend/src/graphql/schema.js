@@ -1,4 +1,3 @@
-// src/graphql/schema.js
 
 const { gql } = require('apollo-server');
 
