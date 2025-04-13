@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { FaCalendarAlt, FaRegCalendarCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
-import "react-calendar/dist/Calendar.css"; // Calendar base styling
+import "react-calendar/dist/Calendar.css"; 
+import { Link } from "react-router-dom";
+
 
 interface Event {
   date: string;
@@ -119,10 +121,14 @@ const CryptoCalendar: React.FC = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}
       >
-        <button className="py-3 px-8 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-          Discover More Events
-        </button>
+     <Link to="/history">
+  <button className="py-3 px-8 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+    Discover More Events
+  </button>
+</Link>
+
       </motion.div>
+      
     </div>
   );
 };
