@@ -1,11 +1,11 @@
-// src/graphql/resolvers.js
+
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const resolvers = {
   Query: {
-    // Fetch all crypto assets
+
     getCryptoAssets: async () => {
       try {
         return await prisma.cryptoAsset.findMany();
@@ -15,16 +15,16 @@ const resolvers = {
       }
     },
 
-    // Fetch price history for a specific crypto asset by symbol
+
     getPriceHistory: async (_, { symbol }) => {
       try {
-        // Find the crypto asset based on its symbol
+  
         const asset = await prisma.cryptoAsset.findUnique({
           where: {
-            symbol: symbol,  // Use the symbol to find the asset
+            symbol: symbol, 
           },
           include: {
-            priceHistory: true,  // Include related price history records
+            priceHistory: true,  
           },
         });
 
