@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../utils/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import { FaCoins, FaWallet, FaUserEdit, FaSave } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 const Preferences: React.FC = () => {
-  const [user, setUser] = useState<any>(auth.currentUser);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [preferences, setPreferences] = useState<any>({
     favoriteCoins: "",
     portfolio: "",
@@ -13,10 +16,19 @@ const Preferences: React.FC = () => {
   });
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
+  // Track authentication state properly
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   // Fetch user preferences from Firestore
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
+        setLoading(true);
         if (user) {
           const userRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(userRef);
@@ -28,12 +40,13 @@ const Preferences: React.FC = () => {
         }
       } catch (error) {
         console.error("Error fetching preferences:", error);
+        toast.error("Failed to load preferences.");
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (user) {
-      fetchPreferences();
-    }
+    if (user) fetchPreferences();
   }, [user]);
 
   // Check if the user is signed in with Google
@@ -55,24 +68,37 @@ const Preferences: React.FC = () => {
 
   // Save preferences to Firestore
   const savePreferences = async () => {
+    if (
+      !preferences.favoriteCoins ||
+      !preferences.portfolio ||
+      !preferences.investmentGoal ||
+      !preferences.riskTolerance
+    ) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
     try {
+      setLoading(true);
       if (user) {
         const userRef = doc(db, "users", user.uid);
         await setDoc(userRef, preferences, { merge: true });
-        alert("Preferences saved successfully!");
+        toast.success("Preferences saved successfully!");
       } else {
-        alert("User not authenticated!");
+        toast.error("User not authenticated!");
       }
     } catch (error) {
       console.error("Error saving preferences:", error);
-      alert("An error occurred while saving preferences.");
+      toast.error("An error occurred while saving preferences.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 to-black text-white flex justify-center items-center">
+      <Toaster />
       <div className="preferences-container p-6 bg-gray-800 text-white rounded-lg shadow-lg max-w-2xl w-full mx-4">
-        {/* Show alert if the user is not signed in with Google */}
         {showAlert && (
           <div className="bg-red-500 text-white p-4 mb-4 rounded-lg">
             <strong>Alert:</strong> Please sign in with Google to access this feature.
@@ -80,19 +106,23 @@ const Preferences: React.FC = () => {
         )}
 
         {/* User Profile */}
-        <div className="flex items-center mb-6 animate-fadeIn">
-          <img
-            src={user?.photoURL || "/default-avatar.png"}
-            alt="User Avatar"
-            className="w-16 h-16 rounded-full mr-4 border-2 border-blue-500"
-          />
-          <div>
-            <h2 className="text-2xl font-bold">{user?.displayName || "User"}</h2>
-            <p className="text-sm text-gray-400">{user?.email}</p>
+        {user && (
+          <div className="flex items-center mb-6 animate-fadeIn">
+            <img
+              src={user?.photoURL || "/default-avatar.png"}
+              alt="User Avatar"
+              className="w-16 h-16 rounded-full mr-4 border-2 border-blue-500"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">{user?.displayName || "User"}</h2>
+              <p className="text-sm text-gray-400">{user?.email}</p>
+            </div>
           </div>
-        </div>
+        )}
 
         <h2 className="text-xl font-bold text-center mb-6">User Preferences</h2>
+
+        {loading && <p className="text-center my-4">Loading...</p>}
 
         {/* Preferences Form */}
         <div className="space-y-4">
@@ -104,7 +134,7 @@ const Preferences: React.FC = () => {
               type="text"
               id="favoriteCoins"
               name="favoriteCoins"
-              value={preferences.favoriteCoins || ""}
+              value={preferences.favoriteCoins}
               onChange={handleChange}
               className="p-3 w-full bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
@@ -118,7 +148,7 @@ const Preferences: React.FC = () => {
               type="text"
               id="portfolio"
               name="portfolio"
-              value={preferences.portfolio || ""}
+              value={preferences.portfolio}
               onChange={handleChange}
               className="p-3 w-full bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
@@ -132,7 +162,7 @@ const Preferences: React.FC = () => {
               type="text"
               id="investmentGoal"
               name="investmentGoal"
-              value={preferences.investmentGoal || ""}
+              value={preferences.investmentGoal}
               onChange={handleChange}
               className="p-3 w-full bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
@@ -145,7 +175,7 @@ const Preferences: React.FC = () => {
             <select
               id="riskTolerance"
               name="riskTolerance"
-              value={preferences.riskTolerance || ""}
+              value={preferences.riskTolerance}
               onChange={handleChange}
               className="p-3 w-full bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             >
@@ -161,9 +191,10 @@ const Preferences: React.FC = () => {
         <div className="flex justify-center mt-6">
           <button
             onClick={savePreferences}
-            className="p-3 bg-blue-600 text-white rounded-lg flex items-center hover:bg-blue-700 transition duration-300 shadow-md"
+            disabled={loading}
+            className="p-3 bg-blue-600 text-white rounded-lg flex items-center hover:bg-blue-700 transition duration-300 shadow-md disabled:opacity-50"
           >
-            <FaSave className="mr-2" /> Save Preferences
+            <FaSave className="mr-2" /> {loading ? "Saving..." : "Save Preferences"}
           </button>
         </div>
 
