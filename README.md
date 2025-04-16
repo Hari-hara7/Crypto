@@ -6,15 +6,18 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 
 ## 🚀 Features  
 
-- **Real-Time Crypto Prices**  
-- **Market News and Trends**  
-- **Currency Converter**  
-- **Coin Comparison Tool**  
-- **Learning Hub** for Beginners and Experts  
-- **AI-Powered Chatbot** for Instant Queries  
-- **User Preferences**: Save and customize your settings  
-- **Responsive Design**: Works seamlessly on all devices  
-
+- **Post Uploading**: Share your thoughts, news, and analysis on cryptocurrencies.
+- **Like and Upvote Mechanism**: Interact with posts by liking and upvoting them.
+- **Room Chat**: Join real-time chat rooms for discussions on specific cryptocurrencies or market trends.
+- **Favorite Coins Marking**: Mark your favorite coins and easily track them.
+- **Real-Time Crypto Prices**: Get real-time updates on cryptocurrency prices from top exchanges.
+- **Market News and Trends**: Stay informed with the latest news and market trends in the crypto world.
+- **Currency Converter**: Convert cryptocurrencies to fiat currencies and vice versa.
+- **Coin Comparison Tool**: Compare different cryptocurrencies based on key metrics.
+- **Learning Hub**: Access resources for both beginners and experts to learn more about cryptocurrencies.
+- **AI-Powered Chatbot**: Get instant answers to your queries through our AI-powered chatbot.
+- **User Preferences**: Save and customize your settings to enhance your experience.
+- **Responsive Design**: The platform works seamlessly across all devices.
 ---
 
 ## 🛠️ Tech Stack  
