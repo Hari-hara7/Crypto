@@ -20,7 +20,9 @@ import CoinList from './components/CoinList';
 import CryptoNotification from "./components/CryptoNotification";
 import PriceHistoryPage from "./pages/PriceHistoryPage";  
 import History from "./pages/History";//Portfolio
-import Portfolio from "./pages/Portfolio";  
+
+import ChatRoom from "./pages/ChatRoom";  //ChatRoom
+
 
 const App: React.FC = () => {
   return (
@@ -50,7 +52,8 @@ const App: React.FC = () => {
 
             <Route path="/history" element={<History />} />
             <Route path="/price-history/:symbol" element={<PriceHistoryPage />} />
-            <Route path="/portfolio" element={<Portfolio />} />
+      
+            <Route path="/chatRoom" element={<ChatRoom />} />
           </Routes>
         </main>
 

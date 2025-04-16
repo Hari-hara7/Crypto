@@ -1,13 +1,12 @@
-// Import necessary libraries
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../utils/firebaseConfig";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import { FaBitcoin, FaEthereum, FaChartLine, FaSave } from "react-icons/fa";
 
 // API URL for CoinGecko
 const COINGECKO_API_URL = "https://api.coingecko.com/api/v3/simple/price?ids=";
 
-// Types for user portfolio
 type PortfolioCoin = {
   name: string;
   amount: number;
@@ -15,7 +14,8 @@ type PortfolioCoin = {
 };
 
 const Portfolio: React.FC = () => {
-  const [user, setUser] = useState<any>(auth.currentUser);
+  const [user, setUser] = useState<any>(null);
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
   const [portfolio, setPortfolio] = useState<PortfolioCoin[]>([]);
   const [totalValue, setTotalValue] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,26 +23,33 @@ const Portfolio: React.FC = () => {
   const [newAmount, setNewAmount] = useState<number>(0);
 
   useEffect(() => {
-    // Fetch portfolio data from Firestore when user is available
-    const fetchPortfolio = async () => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(userRef);
-        if (docSnap.exists()) {
-          setPortfolio(docSnap.data().portfolio || []);
-        }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        fetchPortfolio(currentUser);
+      } else {
+        window.location.href = "/login"; // Redirect to login if not authenticated
       }
-    };
+      setAuthLoading(false);
+    });
 
-    if (user) fetchPortfolio();
-  }, [user]);
+    return () => unsubscribe();
+  }, []);
+
+  const fetchPortfolio = async (currentUser: any) => {
+    const userRef = doc(db, "users", currentUser.uid);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      setPortfolio(docSnap.data().portfolio || []);
+    }
+  };
 
   const handleAddCoin = () => {
     if (!newCoin || newAmount <= 0) return;
 
     const updatedPortfolio = [
       ...portfolio,
-      { name: newCoin, amount: newAmount, risk: "Medium" }, // Default risk is Medium
+      { name: newCoin, amount: newAmount, risk: "Medium" },
     ];
     setPortfolio(updatedPortfolio);
     savePortfolio(updatedPortfolio);
@@ -63,8 +70,8 @@ const Portfolio: React.FC = () => {
 
   const calculatePortfolioValue = async () => {
     setLoading(true);
-
     const coinIds = portfolio.map((coin) => coin.name.toLowerCase()).join(",");
+
     try {
       const response = await fetch(`${COINGECKO_API_URL}${coinIds}&vs_currencies=usd&include_market_cap=true`);
       const data = await response.json();
@@ -73,25 +80,19 @@ const Portfolio: React.FC = () => {
       const updatedPortfolio = portfolio.map((coin) => {
         const coinData = data[coin.name.toLowerCase()];
         if (coinData) {
-          // Calculate the total value of the portfolio
           total += coinData.usd * coin.amount;
 
-          // Risk categorization based on market cap
-          let risk = "Medium"; // Default risk is Medium
+          let risk = "Medium";
           const marketCap = coinData.market_cap;
-
-          if (marketCap > 10000000000) {
-            risk = "Low"; // Low risk for large market caps (e.g., Bitcoin, Ethereum)
-          } else if (marketCap < 1000000000) {
-            risk = "High"; // High risk for smaller market caps (e.g., Altcoins)
-          }
+          if (marketCap > 10000000000) risk = "Low";
+          else if (marketCap < 1000000000) risk = "High";
 
           return { ...coin, risk };
         }
         return coin;
       });
 
-      setPortfolio(updatedPortfolio); // Update portfolio with risk
+      setPortfolio(updatedPortfolio);
       setTotalValue(total);
     } catch (error) {
       console.error("Error fetching real-time data:", error);
@@ -100,15 +101,25 @@ const Portfolio: React.FC = () => {
     }
   };
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex justify-center items-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 to-black text-white flex justify-center items-center">
       <div className="portfolio-container p-6 bg-gray-800 text-white rounded-lg shadow-lg max-w-2xl w-full mx-4">
+        <div className="text-right mb-2">
+          <p className="text-sm text-gray-400">Logged in as <span className="font-semibold">{user?.email}</span></p>
+        </div>
+
         <h2 className="text-2xl font-bold text-center mb-6">Crypto Portfolio Tracker</h2>
 
         <div className="form-group mb-4">
-          <label htmlFor="coin" className="block text-lg mb-2">
-            Add Coin to Portfolio:
-          </label>
+          <label htmlFor="coin" className="block text-lg mb-2">Add Coin to Portfolio:</label>
           <div className="flex space-x-2">
             <input
               type="text"
@@ -130,7 +141,7 @@ const Portfolio: React.FC = () => {
               onClick={handleAddCoin}
               className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
             >
-              <FaSave className="mr-2" /> Add Coin
+              <FaSave className="inline-block mr-1" /> Add
             </button>
           </div>
         </div>
@@ -142,10 +153,18 @@ const Portfolio: React.FC = () => {
           ) : (
             <ul>
               {portfolio.map((coin, index) => (
-                <li key={index} className="flex justify-between items-center py-2">
+                <li key={index} className="flex justify-between items-center py-2 border-b border-gray-600">
                   <span>{coin.name}</span>
                   <span>{coin.amount} {coin.name}</span>
-                  <span className={`text-${coin.risk === "Low" ? "green" : coin.risk === "High" ? "red" : "yellow"}-500`}>
+                  <span
+                    className={`font-semibold ${
+                      coin.risk === "Low"
+                        ? "text-green-500"
+                        : coin.risk === "High"
+                        ? "text-red-500"
+                        : "text-yellow-500"
+                    }`}
+                  >
                     ({coin.risk})
                   </span>
                 </li>
@@ -159,12 +178,12 @@ const Portfolio: React.FC = () => {
             onClick={calculatePortfolioValue}
             className="p-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300"
           >
-            <FaChartLine className="mr-2" /> Calculate Portfolio Value
+            <FaChartLine className="inline-block mr-2" /> Calculate Value
           </button>
         </div>
 
         {loading ? (
-          <div className="text-center mt-4">Loading portfolio value...</div>
+          <div className="text-center mt-4">Calculating...</div>
         ) : (
           <div className="text-center mt-4">
             <h4 className="text-lg font-semibold">Total Portfolio Value:</h4>

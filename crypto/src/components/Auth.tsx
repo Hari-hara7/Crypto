@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleProvider, signInWithPopup, signOut } from "../utils/firebaseConfig";
 import { FaGoogle, FaUserAlt, FaEnvelope, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
-
+import { Link } from 'react-router-dom';
+import { FaCoins, FaComments, FaCogs, FaNewspaper } from "react-icons/fa";
 const Auth: React.FC = () => {
   const [user, setUser] = useState(auth.currentUser);
 
@@ -73,6 +74,38 @@ const Auth: React.FC = () => {
                 <span>Joined: {formatDate(user.metadata.creationTime)}</span>
               </div>
             </div>
+{/* Navigation Links with Glassmorphism */}
+<div className="space-y-4 mb-6 w-full text-center">
+
+
+  <Link
+    to="/coins"
+    className="flex items-center justify-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-yellow-300 hover:text-white hover:bg-white/20 transition duration-300 shadow-md"
+  >
+    <FaCoins /> Browse Coins
+  </Link>
+
+  <Link
+    to="/chatRoom"
+    className="flex items-center justify-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-green-300 hover:text-white hover:bg-white/20 transition duration-300 shadow-md"
+  >
+    <FaComments /> Chat Room
+  </Link>
+
+  <Link
+    to="/preferences"
+    className="flex items-center justify-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-purple-300 hover:text-white hover:bg-white/20 transition duration-300 shadow-md"
+  >
+    <FaCogs /> Preferences
+  </Link>
+
+  <Link
+    to="/crypto-posts"
+    className="flex items-center justify-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-pink-300 hover:text-white hover:bg-white/20 transition duration-300 shadow-md"
+  >
+    <FaNewspaper /> Crypto Posts
+  </Link>
+</div>
 
             {/* Logout Button */}
             <button
