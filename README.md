@@ -41,7 +41,7 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 | **Express**                       | ![Express](https://img.shields.io/badge/-Express-000000?logo=express&logoColor=white) | Web application framework for Node.js      |  
 | **JWT**                           | ![JWT](https://img.shields.io/badge/-JWT-000000?logo=json-web-tokens&logoColor=white) | Authentication with JSON Web Tokens        |  
 | **MongoDB**                       | ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white) | NoSQL database for storing data            |
-logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMuY29yZS13My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNC4zMzYgNi4zMzdIMTkuNjY2TDE0LjMzNiAxNy42NjdoLTUuMzMzTDE0LjMzNiA2LjMzN1oiIGZpbGw9IndoaXRlIi8+PC9zdmc+) | Serverless Postgres database                |
+           |
 
 ---
 
