@@ -18,6 +18,7 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 - **AI-Powered Chatbot**: Get instant answers to your queries through our AI-powered chatbot.
 - **User Preferences**: Save and customize your settings to enhance your experience.
 - **Responsive Design**: The platform works seamlessly across all devices.
+- **Blogs Section**: Where users can post and read the blogs on current market trends
 ---
 
 ## 🛠️ Tech Stack  
@@ -38,9 +39,9 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 | **Socket.IO**                     | ![Socket.IO](https://img.shields.io/badge/-Socket.IO-010101?logo=socket.io&logoColor=white) | Real-time, bidirectional communication      |  
 | **Node.js**                       | ![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white) | Server-side JavaScript runtime environment |  
 | **Express**                       | ![Express](https://img.shields.io/badge/-Express-000000?logo=express&logoColor=white) | Web application framework for Node.js      |  
-| **GraphQL**                       | ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?logo=graphql&logoColor=white) | Query language for APIs                     |  
-| **Prisma**                        | ![Prisma](https://img.shields.io/badge/-Prisma-2D3748?logo=prisma&logoColor=white)   | Type-safe ORM for database access           |  
-| **Neon**                          | ![Neon](https://img.shields.io/badge/-Neon-008BFB?logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMuY29yZS13My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNC4zMzYgNi4zMzdIMTkuNjY2TDE0LjMzNiAxNy42NjdoLTUuMzMzTDE0LjMzNiA2LjMzN1oiIGZpbGw9IndoaXRlIi8+PC9zdmc+) | Serverless Postgres database                |
+| **JWT**                           | ![JWT](https://img.shields.io/badge/-JWT-000000?logo=json-web-tokens&logoColor=white) | Authentication with JSON Web Tokens        |  
+| **MongoDB**                       | ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white) | NoSQL database for storing data            |
+logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMuY29yZS13My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNC4zMzYgNi4zMzdIMTkuNjY2TDE0LjMzNiAxNy42NjdoLTUuMzMzTDE0LjMzNiA2LjMzN1oiIGZpbGw9IndoaXRlIi8+PC9zdmc+) | Serverless Postgres database                |
 
 ---
 
