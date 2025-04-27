@@ -94,6 +94,7 @@ const Header: React.FC = () => {
           post
         </Link>
       
+      
         <Link to="/notifications" className="hover:underline">
           Notifications
         </Link>

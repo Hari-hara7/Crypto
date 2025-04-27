@@ -1,16 +1,17 @@
-// src/main.tsx
-
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { ApolloProvider } from '@apollo/client';
-import client from './apolloClient';  
-import App from './App.tsx';
+// src/index.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ApolloProvider client={client}>  
-      <App />
-    </ApolloProvider>
-  </StrictMode>,
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
