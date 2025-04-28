@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import notificationIcon from "../assets/Screenshot 2025-01-19 183430.png";//crypto/src/assets/Screenshot 2025-01-19 183430.png
 
-const socket = io("https://crypto-i38w.onrender.com"); 
+const socket = io("http://localhost:5000"); 
 
 const CryptoNotification = () => {
   const [cryptoData, setCryptoData] = useState({});
