@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/auth";
+const BASE_URL = "https://crypto-1-iv46.onrender.com/api/auth";
 
 export const register = (data: any) => axios.post(`${BASE_URL}/register`, data);
 
