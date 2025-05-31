@@ -93,9 +93,7 @@ const Home: React.FC = () => {
             reshaping the financial landscape, offering unprecedented opportunities for 
             <span className="text-teal-400"> innovation</span> and empowerment.
           </p>
-          <button className="mt-8 px-6 py-3 text-lg font-medium text-white bg-teal-500 rounded-lg shadow-lg hover:bg-teal-400 transition-colors duration-300">
-            Learn More
-          </button>
+          
         </div>
 
         {/* Image Section */}
@@ -141,9 +139,7 @@ const Home: React.FC = () => {
             healthcare, finance, and more. Its applications are limitless, and the potential for growth in this 
             space is vast, making it an exciting area to explore and invest in.
           </p>
-          <button className="mt-8 px-6 py-3 text-lg font-medium text-white bg-teal-500 rounded-lg shadow-lg hover:bg-teal-400 transition-colors duration-300">
-            Discover Blockchain
-          </button>
+          
         </div>
       </div>
     </section>
