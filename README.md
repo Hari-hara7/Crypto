@@ -45,6 +45,13 @@ Crypto Tracker is a modern web application designed to track cryptocurrency pric
 
 ---
 
+<h2 align="center">🧱 System Architecture</h2>
+
+<p align="center">
+  <img src="crypto.jpg" alt="AcademicPal Architecture" width="100%" />
+</p>
+
+
 ## 📦 Packages Used  
 
 | Package                 | Purpose                                      |  
