@@ -1,5 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { auth, db } from "../utils/firebaseConfig";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  serverTimestamp,
+  Timestamp,
+} from "firebase/firestore";
+import { onAuthStateChanged, User } from "firebase/auth";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Coin {
   id: string;
@@ -10,6 +38,7 @@ interface Coin {
 }
 
 interface CoinDetails {
+  id: string;
   name: string;
   symbol: string;
   image: {
@@ -32,169 +61,202 @@ interface CoinDetails {
   };
   links: {
     homepage: string[];
-    twitter: string;
-    reddit: string;
   };
+}
+
+interface Comment {
+  user: string;
+  message: string;
+  createdAt: Timestamp | { seconds: number; nanoseconds: number };
 }
 
 const CoinList: React.FC = () => {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [selectedCoin, setSelectedCoin] = useState<CoinDetails | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState<Coin[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentInput, setCommentInput] = useState<string>("");
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        const userDoc = doc(db, "users", currentUser.uid);
+        await setDoc(userDoc, { favorites: [] }, { merge: true });
+        const userSnap = await getDoc(userDoc);
+        const data = userSnap.data();
+        if (data?.favorites) setFavorites(data.favorites);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchCoins = async () => {
-      setLoading(true);
       try {
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets",
-          {
-            params: {
-              vs_currency: "usd",
-              order: "market_cap_desc",
-              per_page: 10,
-              page: 1,
-            },
-          }
-        );
+        const response = await axios.get("https://api.coingecko.com/api/v3/coins/markets", {
+          params: { vs_currency: "usd", order: "market_cap_desc", per_page: 10, page: 1 },
+        });
         setCoins(response.data);
       } catch (error) {
         console.error("Error fetching coins:", error);
-      } finally {
-        setLoading(false);
       }
     };
-
     fetchCoins();
   }, []);
 
   const handleCoinClick = async (coinId: string) => {
-    setLoading(true);
     try {
-      const response = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/${coinId}`
-      );
+      const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}`);
       setSelectedCoin(response.data);
+
+      if (user) {
+        const commentsRef = collection(db, "coins", coinId, "comments");
+        const commentsSnap = await getDocs(query(commentsRef, orderBy("createdAt", "desc"), limit(10)));
+        setComments(commentsSnap.docs.map(doc => doc.data() as Comment));
+      }
     } catch (error) {
       console.error("Error fetching coin details:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
+  const handleAddFavorite = async (coin: Coin) => {
+    if (!user) return;
+    const userDoc = doc(db, "users", user.uid);
+    await updateDoc(userDoc, {
+      favorites: arrayUnion(coin),
+    });
+    setFavorites(prev => [...prev, coin]);
+  };
+
+  const handleRemoveFavorite = async (coin: Coin) => {
+    if (!user) return;
+    const userDoc = doc(db, "users", user.uid);
+    await updateDoc(userDoc, {
+      favorites: arrayRemove(coin),
+    });
+    setFavorites(prev => prev.filter(c => c.id !== coin.id));
+  };
+
+  const handleAddComment = async () => {
+    if (!user || !selectedCoin || !commentInput.trim()) return;
+    const commentRef = collection(db, "coins", selectedCoin.id, "comments");
+    const newComment = {
+      user: user.email!,
+      message: commentInput,
+      createdAt: serverTimestamp()
+    };
+    await addDoc(commentRef, newComment);
+
+    setComments(prev => [
+      {
+        user: user.email!,
+        message: commentInput,
+        createdAt: { seconds: Math.floor(Date.now() / 1000), nanoseconds: 0 }
+      },
+      ...prev
+    ]);
+    setCommentInput("");
+  };
+
+  const formatTimestamp = (ts: Timestamp | { seconds: number }) => {
+    const date = new Date(ts.seconds * 1000);
+    return date.toLocaleString();
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-yellow-400 mb-8">Crypto Tracker</h1>
-      {loading && <div className="text-yellow-400 text-lg">Loading...</div>}
-      
-      {/* Coin List */}
-      <div className="flex flex-wrap justify-center gap-6">
+    <ScrollArea className="h-screen p-6 bg-gradient-to-b from-gray-900 to-black text-white">
+      <h1 className="text-3xl font-bold text-yellow-400 mb-6">🔥 Crypto Tracker</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
         {coins.map((coin) => (
-          <div
-            key={coin.id}
-            className="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all cursor-pointer w-64"
-            onClick={() => handleCoinClick(coin.id)}
-          >
-            <img
-              src={coin.image}
-              alt={coin.name}
-              className="w-16 h-16 mx-auto rounded-full"
-            />
-            <h3 className="text-xl font-semibold text-center mt-4">
-              {coin.name}
-            </h3>
-            <p className="text-center text-gray-400">
-              {coin.symbol.toUpperCase()}
-            </p>
-            <p className="text-center text-yellow-400 mt-2">
-              ${coin.current_price.toFixed(2)}
-            </p>
-          </div>
+          <Card key={coin.id} className="bg-gray-800 hover:shadow-xl transition-all">
+            <CardHeader className="cursor-pointer" onClick={() => handleCoinClick(coin.id)}>
+              <CardTitle className="text-yellow-300 flex justify-between items-center">
+                {coin.name}
+                <img src={coin.image} alt={coin.name} className="w-8 h-8" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-gray-300">
+              <p>Symbol: {coin.symbol.toUpperCase()}</p>
+              <p>Price: ${coin.current_price.toFixed(2)}</p>
+              {user && (
+                <Button
+                  variant="secondary"
+                  className="mt-3 bg-yellow-500 text-black hover:bg-yellow-600"
+                  onClick={() => handleAddFavorite(coin)}
+                >
+                  Add to Favorites
+                </Button>
+              )}
+            </CardContent>
+          </Card>
         ))}
       </div>
 
-      {/* Coin Details */}
-      {selectedCoin && (
-        <div className="mt-10 bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-3xl">
-          <h2 className="text-2xl font-bold text-center mb-4">
-            {selectedCoin.name}
-          </h2>
-          <div className="flex flex-col md:flex-row items-center md:items-start">
-            <img
-              src={selectedCoin.image.large}
-              alt={selectedCoin.name}
-              className="w-32 h-32 rounded-full mb-4 md:mr-6"
-            />
-            <div className="text-gray-300">
-              <p>
-                Symbol:{" "}
-                <span className="text-yellow-400">
-                  {selectedCoin.symbol.toUpperCase()}
-                </span>
-              </p>
-              <p>
-                Current Price:{" "}
-                <span className="text-yellow-400">
-                  ${selectedCoin.market_data.current_price.usd.toFixed(2)}
-                </span>
-              </p>
-              <p>
-                Market Cap:{" "}
-                <span className="text-yellow-400">
-                  ${selectedCoin.market_data.market_cap.usd.toLocaleString()}
-                </span>
-              </p>
-              <p>
-                24h Change:{" "}
-                <span
-                  className={`${
-                    selectedCoin.market_data.price_change_percentage_24h >= 0
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }`}
-                >
-                  {selectedCoin.market_data.price_change_percentage_24h.toFixed(
-                    2
-                  )}
-                  %
-                </span>
-              </p>
-              <p>
-                Total Volume:{" "}
-                <span className="text-yellow-400">
-                  ${selectedCoin.market_data.total_volume.usd.toLocaleString()}
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold">Description:</h3>
-            <p className="text-gray-300">
-              {selectedCoin.description.en || "No description available."}
-            </p>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold">Links:</h3>
-            <ul className="text-gray-300">
-              {selectedCoin.links.homepage[0] && (
-                <li>
-                  <a
-                    href={selectedCoin.links.homepage[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-yellow-400 hover:underline"
+      {user && favorites.length > 0 && (
+        <div className="mb-10">
+          <h2 className="text-xl text-green-400 mb-4">⭐ Your Favorites</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {favorites.map((coin) => (
+              <Card key={coin.id} className="bg-gray-900">
+                <CardHeader className="flex justify-between items-center">
+                  <span className="text-yellow-300">{coin.name}</span>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleRemoveFavorite(coin)}
                   >
-                    Homepage
-                  </a>
-                </li>
-              )}
-            </ul>
+                    Remove
+                  </Button>
+                </CardHeader>
+                <CardContent className="text-sm text-gray-400">
+                  <p>Symbol: {coin.symbol.toUpperCase()}</p>
+                  <p>Price: ${coin.current_price.toFixed(2)}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       )}
-    </div>
+
+      {selectedCoin && (
+        <Card className="bg-gray-800">
+          <CardHeader>
+            <CardTitle className="text-yellow-400">{selectedCoin.name} Details</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-gray-300">
+            <img src={selectedCoin.image.large} alt={selectedCoin.name} className="w-20 h-20" />
+            <p>Symbol: <span className="text-yellow-300">{selectedCoin.symbol.toUpperCase()}</span></p>
+            <p>Current Price: <span className="text-yellow-300">${selectedCoin.market_data.current_price.usd.toFixed(2)}</span></p>
+            <p>Market Cap: <span className="text-yellow-300">${selectedCoin.market_data.market_cap.usd.toLocaleString()}</span></p>
+            <p>24h Change: <span className={selectedCoin.market_data.price_change_percentage_24h >= 0 ? "text-green-400" : "text-red-400"}>
+              {selectedCoin.market_data.price_change_percentage_24h.toFixed(2)}%</span></p>
+            <p>Total Volume: <span className="text-yellow-300">${selectedCoin.market_data.total_volume.usd.toLocaleString()}</span></p>
+
+            <Separator className="my-2" />
+            <Textarea
+              className="text-white"
+              placeholder="Leave a comment"
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+            />
+            <Button className="bg-yellow-500 text-black hover:bg-yellow-600" onClick={handleAddComment}>Submit Comment</Button>
+            <Separator className="my-4" />
+            <h3 className="text-lg font-semibold text-yellow-400">Recent Comments</h3>
+            <ul className="text-sm space-y-2">
+              {comments.map((c, i) => (
+                <li key={i}>
+                  <span className="text-green-400">{c.user}</span>: {c.message}
+                  <div className="text-xs text-gray-400">{formatTimestamp(c.createdAt)}</div>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
+    </ScrollArea>
   );
 };
 
