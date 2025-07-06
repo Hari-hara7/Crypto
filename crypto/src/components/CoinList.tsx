@@ -235,7 +235,15 @@ const CoinList: React.FC = () => {
               {selectedCoin.market_data.price_change_percentage_24h.toFixed(2)}%</span></p>
             <p>Total Volume: <span className="text-yellow-300">${selectedCoin.market_data.total_volume.usd.toLocaleString()}</span></p>
 
-            <Separator className="my-2" />
+            <Separator className="my-4" />
+            <h3 className="text-lg font-semibold text-yellow-400">📘 About {selectedCoin.name}</h3>
+            <p className="text-sm text-gray-300">
+              {selectedCoin.description.en
+                ? selectedCoin.description.en.replace(/<\/?[^>]+(>|$)/g, "").slice(0, 500) + "..."
+                : "No description available for this coin."}
+            </p>
+
+            <Separator className="my-4" />
             <Textarea
               className="text-white"
               placeholder="Leave a comment"
