@@ -1,12 +1,34 @@
-import React, { useState, useEffect } from "react"; 
+"use client";
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-// Registering Chart.js components
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+import { auth, db } from "../utils/firebaseConfig";
+import {
+  doc,
+  setDoc,
+  onSnapshot,
+} from "firebase/firestore";
+import { onAuthStateChanged, User } from "firebase/auth";
+
+// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-// Time intervals for CoinGecko API
+// Time intervals
 const timeIntervals: Record<string, string> = {
   "1h": "hourly",
   "1d": "daily",
@@ -22,28 +44,42 @@ interface HistoricalChartProps {
 const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
   const [chartData, setChartData] = useState<any>(null);
   const [selectedInterval, setSelectedInterval] = useState<string>("1d");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const [availableCryptos, setAvailableCryptos] = useState<any[]>([]);
   const [selectedCrypto, setSelectedCrypto] = useState<string>(cryptoId);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch available cryptocurrencies
+  // Listen for Firebase Auth state
   useEffect(() => {
-    const fetchCryptos = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/list"
-        );
-        setAvailableCryptos(response.data);
-      } catch (error) {
-        console.error("Error fetching cryptocurrency list:", error);
-      }
-    };
-    fetchCryptos();
+    onAuthStateChanged(auth, (u) => {
+      setUser(u);
+    });
   }, []);
 
+  // Fetch top 50 coins by market cap
   useEffect(() => {
-    const fetchHistoricalData = async () => {
+    const fetchTopCryptos = async () => {
+      try {
+        const response = await axios.get("https://api.coingecko.com/api/v3/coins/markets", {
+          params: {
+            vs_currency: "usd",
+            order: "market_cap_desc",
+            per_page: 50,
+            page: 1,
+          },
+        });
+        setAvailableCryptos(response.data);
+      } catch (err) {
+        console.error("Error fetching top coins:", err);
+      }
+    };
+    fetchTopCryptos();
+  }, []);
+
+  // Fetch historical price data
+  useEffect(() => {
+    const fetchChartData = async () => {
       setLoading(true);
       setError(null);
 
@@ -66,73 +102,108 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
           labels,
           datasets: [
             {
-              label: `${selectedCrypto} Price (USD)`,
+              label: `${selectedCrypto.toUpperCase()} Price (USD)`,
               data,
               fill: false,
-              borderColor: "#3498db",
-              tension: 0.1,
+              borderColor: "#3498db", // blue
+              tension: 0.3,
             },
           ],
         });
-      } catch (error: any) {
-        setError(error?.response?.data?.message || "Error fetching historical data.");
+
+        // Save selection in Firestore
+        if (user) {
+          const userDoc = doc(db, "users", user.uid);
+          await setDoc(userDoc, {
+            selectedCrypto,
+            selectedInterval,
+          }, { merge: true });
+        }
+
+      } catch (err: any) {
+        setError(err?.response?.data?.message || "Error fetching chart data.");
       } finally {
         setLoading(false);
       }
     };
 
-    if (selectedCrypto) {
-      fetchHistoricalData();
+    if (selectedCrypto && selectedInterval) {
+      fetchChartData();
     }
-  }, [selectedCrypto, selectedInterval]);
+  }, [selectedCrypto, selectedInterval, user]);
 
-  const handleIntervalChange = (interval: string) => {
-    setSelectedInterval(interval);
-  };
+  // Listen to Firestore for real-time updates
+  useEffect(() => {
+    if (!user) return;
 
-  const handleCryptoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCrypto(e.target.value);
-  };
+    const userDoc = doc(db, "users", user.uid);
+    const unsubscribe = onSnapshot(userDoc, (docSnap) => {
+      const data = docSnap.data();
+      if (data?.selectedCrypto) setSelectedCrypto(data.selectedCrypto);
+      if (data?.selectedInterval) setSelectedInterval(data.selectedInterval);
+    });
 
-  if (loading) return <div className="text-white text-center">Loading chart... <div className="spinner"></div></div>;
-  if (error) return <p className="text-red-500 text-center">{error}</p>;
+    return () => unsubscribe();
+  }, [user]);
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg shadow-xl max-w-3xl mx-auto">
-      <h2 className="text-xl font-bold text-white text-center mb-4">Historical Data</h2>
-      
-      {/* Crypto Selection Dropdown */}
-      <div className="text-center mb-4">
-        <select
-          value={selectedCrypto}
-          onChange={handleCryptoChange}
-          className="py-2 px-4 rounded-full bg-gray-700 text-gray-300"
-        >
-          {availableCryptos.map((crypto) => (
-            <option key={crypto.id} value={crypto.id}>
-              {crypto.name} ({crypto.symbol.toUpperCase()})
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Interval Buttons */}
-      <div className="text-center mb-4 flex justify-center space-x-3">
-        {["1h", "1d", "7d", "30d", "1y"].map((interval) => (
-          <button
-            key={interval}
-            onClick={() => handleIntervalChange(interval)}
-            className={`py-2 px-4 rounded-full transition duration-300 mx-2 
-              ${selectedInterval === interval ? "bg-blue-500 text-white border-2 border-blue-600" : "bg-gray-700 text-gray-300 hover:bg-blue-500 hover:text-white"}`}
+    <Card className="w-full bg-[#1c1c1e] text-white max-w-4xl mx-auto mt-6 p-4 md:p-6">
+      <CardHeader>
+        <CardTitle className="text-center text-2xl">📈 Crypto Historical Chart</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {/* Dropdown */}
+        <div className="text-center">
+          <select
+            value={selectedCrypto}
+            onChange={(e) => setSelectedCrypto(e.target.value)}
+            className="w-full md:w-72 p-2 rounded-md bg-blue-900 text-white border border-blue-500 focus:outline-none"
           >
-            {interval === "1h" ? "1 Hour" : interval === "1d" ? "1 Day" : interval === "7d" ? "7 Days" : interval === "30d" ? "30 Days" : "1 Year"}
-          </button>
-        ))}
-      </div>
+            <option value="" disabled>Select Crypto</option>
+            {availableCryptos.map((coin) => (
+              <option key={coin.id} value={coin.id}>
+                {coin.name} ({coin.symbol.toUpperCase()})
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Chart */}
-      {chartData && <Line data={chartData} />}
-    </div>
+        {/* Interval Buttons */}
+        <div className="flex flex-wrap justify-center gap-3">
+          {["1h", "1d", "7d", "30d", "1y"].map((interval) => (
+            <Button
+              key={interval}
+              variant={selectedInterval === interval ? "default" : "outline"}
+              className={`text-sm ${selectedInterval === interval ? "bg-blue-600 text-white" : "border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white"}`}
+              onClick={() => setSelectedInterval(interval)}
+            >
+              {interval === "1h"
+                ? "1 Hour"
+                : interval === "1d"
+                ? "1 Day"
+                : interval === "7d"
+                ? "7 Days"
+                : interval === "30d"
+                ? "30 Days"
+                : "1 Year"}
+            </Button>
+          ))}
+        </div>
+
+        {/* Chart */}
+        {loading ? (
+          <p className="text-center text-yellow-400">Loading chart...</p>
+        ) : error ? (
+          <p className="text-center text-red-400">{error}</p>
+        ) : (
+          chartData && (
+            <div className="w-full overflow-x-auto">
+              <Line data={chartData} />
+            </div>
+          )
+        )}
+      </CardContent>
+    </Card>
   );
 };
 
