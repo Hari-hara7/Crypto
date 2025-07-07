@@ -161,7 +161,9 @@ const Header: React.FC = () => {
     <Link to="/news" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <FaRegNewspaper /> News
     </Link>
-
+    <Link to="/compare" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaBook /> Compare
+    </Link>
     <Link to="/calendar" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineCalendar /> Crypto Calendar
     </Link>
