@@ -188,7 +188,7 @@ const LearnCryptoLikeAPro = () => {
                 disabled={!!userVote} className="text-red-400 hover:bg-red-500/10">
                 <FaThumbsDown className="mr-1" /> Downvote
               </Button>
-              <Button className="bg-white text-black"  variant="outline " onClick={handleShare}><FaShareAlt className="mr-1" /> Share</Button>
+              <Button className="bg-white text-black"  variant="outline " onClick={handleShare}><FaShareAlt className="mr-1" /> Share </Button>
             </div>
           </div>
 
