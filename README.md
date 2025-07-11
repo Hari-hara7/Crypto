@@ -359,13 +359,7 @@ socket.on('priceUpdate', (data) => {
 
 ### 🎮 Demo Screenshots
 
-<div align="center">
 
-| Dashboard | Portfolio | Chat Rooms |
-|:---------:|:---------:|:----------:|
-| ![Dashboard](#) | ![Portfolio](#) | ![Chat](#) |
-
-</div>
 
 ---
 
@@ -690,8 +684,8 @@ If you find this project helpful, please consider:
 
 ---
 
-**Made with ❤️ by the Crypto Tracker Team**
+**Made with ❤️ by the Hariharanath**
 
-*Last updated: December 2024*
+*Last updated: July 2025*
 
 </div>  
