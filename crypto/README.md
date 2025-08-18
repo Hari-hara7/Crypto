@@ -14,6 +14,15 @@ A modern, feature-rich cryptocurrency tracking application built with React, Typ
 - **Community Features**: User comments and discussions for each coin
 - **Responsive Design**: Optimized for all screen sizes
 
+### 📰 Enhanced NewsFeed Component
+- **Modern News Hub**: Full-screen news experience with particle backgrounds
+- **Advanced Search**: Real-time search through news articles
+- **Smart Filtering**: Category-based filtering and pagination
+- **Rich News Cards**: Beautiful cards with time stamps and source information
+- **Statistics Dashboard**: Live stats showing article counts and fresh content
+- **Responsive Grid**: Adaptive layout for different screen sizes
+- **Refresh Functionality**: One-click news refresh with loading states
+
 ### 🎨 Design Highlights
 - **Particle Background**: Dynamic animated particles using tsparticles
 - **Gradient Cards**: Beautiful gradient card designs with hover effects
