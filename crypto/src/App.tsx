@@ -15,7 +15,7 @@ import Chatbot from './components/CryptoChatbot';
 import Auth from "./components/Auth"; 
 import Preferences from "./components/Preferences"; 
 import CryptoPost from './components/CryptoPost';
-import CoinList from './components/CoinList'; 
+import CoinList from './components/CryptoList'; 
 import CryptoNotification from "./components/CryptoNotification";
 import PriceHistoryPage from "./pages/PriceHistoryPage";  
 import History from "./pages/History";
