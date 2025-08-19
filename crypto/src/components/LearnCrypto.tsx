@@ -364,7 +364,7 @@ const LearnCryptoLikeAPro = () => {
               <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-4">
                 <div className="flex items-center justify-center space-x-2 text-orange-400 mb-2">
                   <FaTrophy />
-                  <span className="text-2xl font-bold">50+</span>
+                  <span className="text-2xl font-bold">10+</span>
                 </div>
                 <p className="text-gray-400 text-sm">Courses</p>
               </div>
@@ -386,7 +386,7 @@ const LearnCryptoLikeAPro = () => {
                 {userVote === 'like' ? 'Thanks for voting!' : 'Upvote Course'}
               </Button>
               <Button 
-                variant="outline" 
+                
                 onClick={handleShare}
                 className="border-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-xl font-semibold"
               >
