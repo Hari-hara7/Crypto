@@ -24,13 +24,12 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 interface ConversionRecord {
   id: string;
-  fromCurrency: string;
-  toCurrency: string;
-  fromAmount: number;
-  toAmount: number;
+  from: string;
+  to: string;
+  amount: number;
+  result: number;
   rate: number;
   timestamp: Timestamp | null;
-  uid: string;
 }
 
 interface Crypto {
@@ -180,11 +179,20 @@ const CryptoConverter = () => {
     try {
       const q = query(collection(db, "users", uid, "conversions"), orderBy("timestamp", "desc"));
       const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      } as ConversionRecord));
+      const data = querySnapshot.docs.map(doc => {
+        const docData = doc.data();
+        return {
+          id: doc.id,
+          from: docData.from || '',
+          to: docData.to || '',
+          amount: docData.amount || 0,
+          result: docData.result || 0,
+          rate: docData.rate || 0,
+          timestamp: docData.timestamp || null
+        } as ConversionRecord;
+      });
       setConversionHistory(data);
+      console.log('Fetched conversion history:', data); // Debug log
     } catch (error) {
       console.error("Error fetching history: ", error);
     }
@@ -410,13 +418,18 @@ const CryptoConverter = () => {
               </h3>
               <div className="space-y-3">
                 <motion.button
-                  onClick={() => setShowHistory(!showHistory)}
+                  onClick={() => {
+                    console.log('Toggle history clicked. Current state:', showHistory);
+                    console.log('User:', user);
+                    console.log('History length:', conversionHistory.length);
+                    setShowHistory(!showHistory);
+                  }}
                   className="w-full flex items-center justify-between p-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
                   whileHover={{ scale: 1.02 }}
                 >
                   <span className="flex items-center">
                     <FaHistory className="mr-2 text-teal-400" />
-                    View History
+                    {showHistory ? 'Hide History' : 'View History'}
                   </span>
                   <FaArrowRight className="text-gray-400" />
                 </motion.button>
@@ -432,13 +445,29 @@ const CryptoConverter = () => {
                     Clear History
                   </span>
                 </motion.button>
+
+                {user && (
+                  <motion.button
+                    onClick={() => {
+                      console.log('Manual refresh history for user:', user.uid);
+                      fetchConversionHistory(user.uid);
+                    }}
+                    className="w-full flex items-center justify-between p-3 bg-blue-600/20 hover:bg-blue-600/30 rounded-lg transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <span className="flex items-center">
+                      <FiRefreshCw className="mr-2 text-blue-400" />
+                      Refresh History
+                    </span>
+                  </motion.button>
+                )}
               </div>
             </div>
           </motion.div>
         </div>
 
         {/* Conversion History */}
-        {user && showHistory && conversionHistory.length > 0 && (
+        {showHistory && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -450,34 +479,53 @@ const CryptoConverter = () => {
                   <FaHistory className="mr-3" />
                   Conversion History
                 </h3>
-                <span className="text-sm text-gray-400">{conversionHistory.length} conversions</span>
+                <span className="text-sm text-gray-400">
+                  {user ? `${conversionHistory.length} conversions` : 'Sign in required'}
+                </span>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {conversionHistory.slice(0, 6).map((item, index) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-gray-800 p-4 rounded-lg border border-gray-600 hover:border-teal-400 transition-colors"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-teal-400">
-                        {item.fromCurrency?.toUpperCase()} → {item.toCurrency?.toUpperCase()}
-                      </span>
-                      <FaClock className="text-gray-400 text-xs" />
-                    </div>
-                    <div className="text-lg font-semibold text-white mb-1">
-                      {item.fromAmount} → {item.toAmount?.toFixed(2)}
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      {item.timestamp instanceof Date ? item.timestamp.toLocaleString() : 
-                       item.timestamp?.toDate?.() ? item.timestamp.toDate().toLocaleString() : 'Recently'}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              {!user ? (
+                <div className="text-center py-8">
+                  <FaHistory className="mx-auto text-4xl text-gray-500 mb-4" />
+                  <p className="text-gray-400 text-lg">Sign in to view conversion history</p>
+                  <p className="text-gray-500 text-sm">Your conversion history will be saved when you're signed in</p>
+                </div>
+              ) : conversionHistory.length === 0 ? (
+                <div className="text-center py-8">
+                  <FaHistory className="mx-auto text-4xl text-gray-500 mb-4" />
+                  <p className="text-gray-400 text-lg">No conversion history yet</p>
+                  <p className="text-gray-500 text-sm">Start converting currencies to see your history here</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {conversionHistory.slice(0, 9).map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="bg-gray-800 p-4 rounded-lg border border-gray-600 hover:border-teal-400 transition-colors"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-teal-400">
+                          {item.from?.toUpperCase()} → {item.to?.toUpperCase()}
+                        </span>
+                        <FaClock className="text-gray-400 text-xs" />
+                      </div>
+                      <div className="text-lg font-semibold text-white mb-1">
+                        {item.amount} → {item.result?.toFixed(2)}
+                      </div>
+                      <div className="text-xs text-gray-400 mb-2">
+                        Rate: 1 {item.from?.toUpperCase()} = {item.rate?.toFixed(6)} {item.to?.toUpperCase()}
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        {item.timestamp instanceof Date ? item.timestamp.toLocaleString() : 
+                         item.timestamp?.toDate?.() ? item.timestamp.toDate().toLocaleString() : 'Recently'}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         )}
