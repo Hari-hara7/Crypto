@@ -524,31 +524,31 @@ style: improve button component styling
 
 ---
 
-## 📄 License
+Copyright (c) 2025 Hariharanath
 
-This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
+All Rights Reserved.
 
-### 📋 License Summary
+This software, known as "Crypto Tracker," and its source code are the exclusive property of the author (Hariharanath).
 
-- ✅ **Commercial Use**: Permitted with conditions
-- ✅ **Modification**: Allowed
-- ✅ **Distribution**: Allowed
-- ✅ **Private Use**: Allowed
-- ❌ **Patent Use**: Not granted
-- ⚠️ **Liability**: Limited
-- ⚠️ **Warranty**: None provided
+Permissions:
+- You may view this code for personal reference and learning purposes only.
+- You must obtain written permission from the author for any other use.
 
-### 🤝 What This Means
+Restrictions:
+- You are NOT allowed to copy, modify, distribute, or reproduce any part of this software.
+- You are NOT allowed to use this software or its code in personal, academic, or commercial projects without permission.
+- You are NOT allowed to resell, sublicense, or host this software as a service.
+- You are NOT allowed to publish or share this software in any public or private repository without explicit approval.
 
-You are free to:
-- Use this software for any purpose
-- Study how the program works
-- Modify the software to suit your needs
-- Share the software with others
+Liability:
+This software is provided “as is” without warranty of any kind.  
+The author is not liable for any damages or losses resulting from the use of this software.
 
-**Requirements**: Any derivative work must also be open-source under GPL v3.0
+Any unauthorized use, reproduction, or distribution of "Crypto Tracker"
+is strictly prohibited and may result in legal action.
 
----
+Contact:Hariharanath247@gmail.com
+
 
 ## ❓ FAQ
 
