@@ -26,6 +26,7 @@ import Register from "./pages/Register";
 import CreateBlog from "./pages/CreateBlog";
 import BlogDetails from "./pages/BlogDetails";
 import AddCryptoEventForm from "./components/AddCryptoEventForm";
+import PredictionPage from "./pages/Prediction";
 
 const App: React.FC = () => {
 
@@ -42,6 +43,7 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/predict" element={<PredictionPage />} />
           <Route path="/coins" element={<Coins />} />
           <Route path="/admin" element={<AddCryptoEventForm />} />
           <Route path="/converter" element={<Converter />} />
