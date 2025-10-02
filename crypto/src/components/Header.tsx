@@ -70,8 +70,9 @@ const Header: React.FC = () => {
           Compare Coins
         </Link>
         
-        <Link to="/chatbot" className="hover:underline">
-          GPT
+        <Link to="/predict" className="hover:underline">
+          
+          AI Prediction
         </Link>
         <Link to="/news" className="hover:underline">
           News
@@ -152,8 +153,8 @@ const Header: React.FC = () => {
     <Link to="/coins-details" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <FaCoins /> coins details
     </Link>
-    <Link to="/chatbot" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
-      <FaRobot /> Gpt
+    <Link to="/predict" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
+      <FaRobot /> AI Prediction
     </Link>
     <Link to="/converter" className="text-white text-xl flex items-center gap-2" onClick={toggleMenu}>
       <AiOutlineCalculator /> Converter

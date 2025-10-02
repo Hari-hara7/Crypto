@@ -42,7 +42,7 @@ const Footer: FC = () => {
       { icon: <AiOutlineStock />, label: "Compare", to: "/compare" },
       { icon: <AiOutlineCalendar />, label: "Calendar", to: "/calendar" },
       { icon: <AiOutlineRead />, label: "Learn", to: "/learn" },
-      { icon: <AiOutlineRobot />, label: "AI Chat", to: "/chatbot" },
+      { icon: <AiOutlineRobot />, label: "AI Prediction", to: "/predict" },
     ],
     account: [
       { icon: <FaUserCircle />, label: "Sign In", to: "/auth" },
