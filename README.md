@@ -24,6 +24,7 @@
 - [✨ Features](#-features)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [🔍 Code Review Summary](#-code-review-summary)
+- [🤖 Machine Learning & AI Features](#-machine-learning--ai-features)
 - [⚙️ Installation](#️-installation)
 - [🚀 Usage](#-usage)
 - [🏗️ System Architecture](#️-system-architecture)
@@ -488,7 +489,8 @@ npm run build
 ```bash
 # Start the ML prediction service
 cd ml_model
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn python -m uvicorn app.main:app --reload
+
 
 # Access predictions via API
 curl http://localhost:8000/predict/BTC-USD
@@ -670,7 +672,7 @@ We welcome contributions from the community! Here's how you can help make Crypto
 #### 1️⃣ Fork & Clone
 ```bash
 # Fork the repository on GitHub
-git clone https://github.com/YOUR_USERNAME/Crypto.git
+git clone https://github.com/Hari-hara7/Crypto.git
 cd Crypto
 ```
 
