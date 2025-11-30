@@ -1,6 +1,9 @@
 import os
 import joblib
 import yfinance as yf
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 MODEL_DIR = "app/models"
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -44,4 +47,5 @@ def predict_trend(coin: str):
         }
 
     except Exception as e:
-        return {"error": str(e)}
+        logging.exception("Exception during prediction for coin %s", coin)
+        return {"error": "An internal error has occurred."}
