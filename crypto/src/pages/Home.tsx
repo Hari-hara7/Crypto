@@ -5,8 +5,8 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { FiArrowRight, FiInfo } from 'react-icons/fi';
 import { Link } from "react-router-dom";
-import cryptoImage from '../assets/crypto.webp';//crypto/src/assets/crypto.webp
-import cryptoImage1 from '../assets/crypto1.png';//crypto/src/assets/crypto.webpcrypto/src/assets/crypto1.png
+import cryptoImage from '../assets/crypto.webp';
+import cryptoImage1 from '../assets/crypto1.png';
 
 const Home: React.FC = () => {
   const particlesInit = async (main: any) => {
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const particlesOptions = {
     background: { color: { value: "#0d1117" } },
     particles: {
-      color: { value: "#00FFCC" }, // Teal particles
+      color: { value: "#00FFCC" },
       links: { enable: true, color: "#00FFCC", distance: 150 },
       move: { enable: true, speed: 1.5 },
       size: { value: { min: 1, max: 4 } },
@@ -25,9 +25,8 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen">
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 text-center relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen overflow-x-hidden w-full">
+      <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-20 md:pt-24 text-center relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 w-full overflow-hidden">
         <Particles
           id="tsparticles"
           init={particlesInit}
@@ -36,14 +35,13 @@ const Home: React.FC = () => {
         />
 
         <motion.div
-          className="max-w-4xl z-10"
+          className="max-w-4xl z-10 px-4"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 drop-shadow-lg">
-            
-            Welcome to Crypto World <FaBitcoin className="inline-block mr-3 text-cyan-500" />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 drop-shadow-lg mb-6">
+            Welcome to Crypto World <FaBitcoin className="inline-block text-cyan-500" />
           </h1>
           <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300">
             Learn, invest, and explore the future of digital currencies.
@@ -74,10 +72,8 @@ const Home: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* About Cryptocurrency Section with Image */}
-<section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-16">
-        {/* Text Content */}
+<section className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-16">
         <div>
           <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
             Understanding <span className="text-teal-400">Cryptocurrency</span>
@@ -96,34 +92,31 @@ const Home: React.FC = () => {
           
         </div>
 
-        {/* Image Section */}
-        <div className="relative">
-          <div className="absolute -top-10 -left-10 w-80 h-80 bg-teal-500 blur-xl rounded-full opacity-20"></div>
+        <div className="relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-60 h-60 md:w-80 md:h-80 bg-teal-500 blur-xl rounded-full opacity-20 -translate-x-1/4 -translate-y-1/4"></div>
           <img
             src={cryptoImage}
             alt="Cryptocurrency Illustration"
-            className="relative z-10 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+            className="relative z-10 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full"
           />
-          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-600 blur-2xl rounded-full opacity-20"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-purple-600 blur-2xl rounded-full opacity-20 translate-x-1/4 translate-y-1/4"></div>
         </div>
       </div>
     </section>
 
 
-    <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-16">
-        {/* Image Section */}
-        <div className="relative">
-          <div className="absolute -top-10 -left-10 w-80 h-80 bg-teal-500 blur-xl rounded-full opacity-20"></div>
+    <section className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-16">
+        <div className="relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-60 h-60 md:w-80 md:h-80 bg-teal-500 blur-xl rounded-full opacity-20 -translate-x-1/4 -translate-y-1/4"></div>
           <img
             src={cryptoImage1}
             alt="Cryptocurrency Illustration"
-            className="relative z-10 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+            className="relative z-10 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full"
           />
-          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-600 blur-2xl rounded-full opacity-20"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-purple-600 blur-2xl rounded-full opacity-20 translate-x-1/4 translate-y-1/4"></div>
         </div>
 
-        {/* Text Content */}
         <div>
           <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
             Why <span className="text-teal-400">Blockchain</span> is the Future of Finance
@@ -144,7 +137,7 @@ const Home: React.FC = () => {
       </div>
     </section>
 
-    <section className="py-20 px-6 sm:py-24 sm:px-8 lg:py-32 lg:px-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+    <section className="py-20 px-4 sm:px-6 sm:py-24 lg:py-32 lg:px-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
   <motion.h2
     className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center text-teal-400 mb-8 sm:mb-12 drop-shadow-lg"
     initial={{ opacity: 0, y: -20 }}
@@ -168,8 +161,7 @@ const Home: React.FC = () => {
 
 
 
-{/* Market Trends Section */}
-<section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+<section className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
   <motion.h2
     className="text-5xl font-extrabold text-center text-teal-400 mb-16 drop-shadow-lg"
     initial={{ opacity: 0, y: -20 }}
@@ -200,8 +192,7 @@ const Home: React.FC = () => {
 
 
 
-     {/* Benefits of Cryptocurrency Section */}
-<section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+<section className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
   <motion.h2
     className="text-4xl font-extrabold text-center text-teal-400 mb-16 drop-shadow-lg"
     initial={{ opacity: 0 }}
@@ -212,10 +203,8 @@ const Home: React.FC = () => {
     Why Choose Cryptocurrency?
   </motion.h2>
 
-  {/* Features Grid */}
-  {/* Features Grid */}
-<div className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
-  <div className="max-w-7xl mx-auto px-6">
+<div className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6">
     <h2 className="text-4xl font-bold text-center text-white mb-12">
       Key <span className="text-teal-400">Features</span>
     </h2>
@@ -224,19 +213,16 @@ const Home: React.FC = () => {
         icon={<FaShieldAlt className="text-teal-400 text-6xl mb-4" />}
         title="Secure Transactions"
         description="Blockchain ensures secure, transparent, and tamper-proof transactions."
-        bg="bg-gray-800"
       />
       <FeatureCard
         icon={<FaBitcoin className="text-teal-400 text-6xl mb-4" />}
         title="Decentralized"
         description="Eliminates the need for intermediaries, offering direct peer-to-peer interactions."
-        bg="bg-gray-800"
       />
       <FeatureCard
         icon={<FaGlobe className="text-teal-400 text-6xl mb-4" />}
         title="Global Reach"
         description="Cryptocurrencies enable borderless transactions across the world."
-        bg="bg-gray-800"
       />
     </div>
   </div>
@@ -247,8 +233,7 @@ const Home: React.FC = () => {
 
 
 
-      {/* Call to Action Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-black text-center">
+      <section className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-black text-center overflow-hidden">
         <h2 className="text-4xl font-bold text-teal-400 mb-6">
           Ready to Join the Future?
         </h2>

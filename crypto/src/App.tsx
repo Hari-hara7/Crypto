@@ -27,20 +27,29 @@ import CreateBlog from "./pages/CreateBlog";
 import BlogDetails from "./pages/BlogDetails";
 import AddCryptoEventForm from "./components/AddCryptoEventForm";
 import PredictionPage from "./pages/Prediction";
+import Privacy from "./pages/Privacy";
 
 const App: React.FC = () => {
 
   const location = useLocation();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
 
       {location.pathname !== "/home" && location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/create" && !location.pathname.includes("/blog") && <Header />}
 
     
       {(location.pathname === "/home" || location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/create" || location.pathname.includes("/blog")) && <Navbar />}
 
-      <main className="flex-grow">
+      <main className={`flex-grow ${
+        location.pathname !== "/home" && 
+        location.pathname !== "/login" && 
+        location.pathname !== "/register" && 
+        location.pathname !== "/create" && 
+        !location.pathname.includes("/blog") 
+          ? "pt-16 md:pt-20" 
+          : ""
+      }`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/predict" element={<PredictionPage />} />
@@ -66,6 +75,7 @@ const App: React.FC = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/create" element={<CreateBlog />} />
           <Route path="/blog/:id" element={<BlogDetails />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </main>
 
