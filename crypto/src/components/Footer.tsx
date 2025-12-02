@@ -30,7 +30,6 @@ const Footer: FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  // Navigation items organized by category
   const navigationItems = {
     main: [
       { icon: <AiOutlineHome />, label: "Home", to: "/" },
@@ -74,7 +73,6 @@ const Footer: FC = () => {
     }
   };
 
-  // Check scroll position for back-to-top button
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 300);
@@ -85,7 +83,7 @@ const Footer: FC = () => {
 
   return (
     <>
-      {/* Back to Top Button - Better mobile positioning */}
+      {}
       {showBackToTop && (
         <button
           onClick={scrollToTop}
@@ -98,10 +96,10 @@ const Footer: FC = () => {
 
       <footer className="bg-gray-900 text-gray-100 border-t border-gray-700 overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 lg:py-12">
-          {/* Mobile-First Layout with improved spacing */}
+          {}
           <div className="space-y-6 md:space-y-8 lg:space-y-0 lg:grid lg:grid-cols-12 lg:gap-6 xl:gap-8">
             
-            {/* Brand Section - Enhanced mobile design */}
+            {}
             <div className="lg:col-span-5 text-center lg:text-left">
               <div className="mb-4 md:mb-6 lg:mb-8">
                 <div className="flex items-center justify-center lg:justify-start space-x-2 md:space-x-3 mb-3 md:mb-4">
@@ -117,7 +115,7 @@ const Footer: FC = () => {
                 </p>
               </div>
 
-              {/* Features - Improved mobile grid */}
+              {}
               <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6 lg:mb-8 max-w-sm mx-auto lg:max-w-none lg:mx-0">
                 {[
                   { icon: <FaRocket />, text: "Real-time", subtext: "Live data updates" },
@@ -137,7 +135,7 @@ const Footer: FC = () => {
                 ))}
               </div>
 
-              {/* Social Links - Enhanced mobile design */}
+              {}
               <div>
                 <h4 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">
                   Connect With Us
@@ -162,11 +160,11 @@ const Footer: FC = () => {
               </div>
             </div>
 
-            {/* Navigation - Better mobile responsive design */}
+            {}
             <div className="lg:col-span-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 
-                {/* Main Navigation */}
+                {}
                 <div className="bg-gray-800/30 p-3 md:p-4 rounded-lg border border-gray-700/50">
                   <h4 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 text-center sm:text-left flex items-center justify-center sm:justify-start space-x-2">
                     <AiOutlineHome className="text-teal-400 text-base md:text-lg" />
@@ -187,7 +185,7 @@ const Footer: FC = () => {
                   </ul>
                 </div>
 
-                {/* Tools */}
+                {}
                 <div className="bg-gray-800/30 p-3 md:p-4 rounded-lg border border-gray-700/50">
                   <h4 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 text-center sm:text-left flex items-center justify-center sm:justify-start space-x-2">
                     <AiOutlineCalculator className="text-teal-400 text-base md:text-lg" />
@@ -208,7 +206,7 @@ const Footer: FC = () => {
                   </ul>
                 </div>
 
-                {/* Account - Full width on small screens */}
+                {}
                 <div className="bg-gray-800/30 p-3 md:p-4 rounded-lg border border-gray-700/50 sm:col-span-2 lg:col-span-1">
                   <h4 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 text-center sm:text-left flex items-center justify-center sm:justify-start space-x-2">
                     <FaUserCircle className="text-teal-400 text-base md:text-lg" />
@@ -231,7 +229,7 @@ const Footer: FC = () => {
               </div>
             </div>
 
-            {/* Contact Section - Enhanced mobile design */}
+            {}
             <div className="lg:col-span-3">
               <h4 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 text-center lg:text-left flex items-center justify-center lg:justify-start space-x-2">
                 <FiMail className="text-teal-400 text-base md:text-lg" />
@@ -239,7 +237,7 @@ const Footer: FC = () => {
               </h4>
 
               <div className="space-y-2 md:space-y-3">
-                {/* Email */}
+                {}
                 <div className="bg-gray-800/50 p-3 md:p-4 rounded-lg border border-gray-700/50 hover:border-teal-500/30 transition-all duration-300 group">
                   <div className="flex items-center space-x-3">
                     <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-teal-500/20 rounded-lg flex items-center justify-center group-hover:bg-teal-500/30 transition-colors duration-300">
@@ -264,7 +262,7 @@ const Footer: FC = () => {
                   </div>
                 </div>
 
-                {/* Phone */}
+                {}
                 <div className="bg-gray-800/50 p-3 md:p-4 rounded-lg border border-gray-700/50 hover:border-teal-500/30 transition-all duration-300 group">
                   <div className="flex items-center space-x-3">
                     <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-green-500/20 rounded-lg flex items-center justify-center group-hover:bg-green-500/30 transition-colors duration-300">
@@ -285,7 +283,7 @@ const Footer: FC = () => {
                   </div>
                 </div>
 
-                {/* Location */}
+                {}
                 <div className="bg-gray-800/50 p-3 md:p-4 rounded-lg border border-gray-700/50 hover:border-teal-500/30 transition-all duration-300 group">
                   <div className="flex items-center space-x-3">
                     <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors duration-300">
@@ -298,7 +296,7 @@ const Footer: FC = () => {
                   </div>
                 </div>
 
-                {/* Newsletter Signup - Mobile optimized */}
+                {}
                 <div className="mt-4 md:mt-6 p-3 md:p-4 bg-gradient-to-r from-teal-500/10 to-blue-500/10 rounded-lg border border-teal-500/20">
                   <div className="text-center">
                     <p className="text-xs md:text-sm text-gray-300 mb-2">Stay updated with crypto trends</p>
@@ -322,7 +320,7 @@ const Footer: FC = () => {
           </div>
         </div>
 
-        {/* Footer Bottom - Enhanced mobile design */}
+        {}
         <div className="border-t border-gray-700/80 bg-gray-900/80 backdrop-blur-sm">
           <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4">
             <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between space-y-2 sm:space-y-0">
@@ -334,7 +332,7 @@ const Footer: FC = () => {
                 <span className="hidden sm:inline">• All rights reserved</span>
               </div>
               
-              {/* Quick Links - Mobile */}
+              {}
               <div className="flex items-center space-x-3 md:space-x-4 text-xs md:text-sm">
                 <a href="/privacy" className="text-gray-400 hover:text-white transition-colors duration-300">Privacy</a>
                 <span className="text-gray-600">•</span>
@@ -344,7 +342,7 @@ const Footer: FC = () => {
               </div>
             </div>
             
-            {/* Mobile-only attribution */}
+            {}
             <div className="sm:hidden text-center mt-2 pt-2 border-t border-gray-700/50">
               <div className="flex items-center justify-center space-x-1 text-xs text-gray-500">
                 <span>Made with</span>

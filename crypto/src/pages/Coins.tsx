@@ -47,7 +47,7 @@ const Coins: FC = () => {
 
   return (
     <div className="p-6 bg-gradient-to-b from-gray-900 via-gray-800 to-black min-h-screen text-gray-100">
-      {/* Page Header */}
+      {}
       <motion.h1
         className="text-3xl md:text-4xl font-extrabold text-center mb-8 text-teal-400"
         initial={{ opacity: 0 }}
@@ -57,7 +57,7 @@ const Coins: FC = () => {
         Cryptocurrency Tracker
       </motion.h1>
 
-      {/* Filter Bar */}
+      {}
       <motion.div
         className="mb-6 bg-black"
         initial={{ opacity: 0, y: -20 }}
@@ -70,7 +70,7 @@ const Coins: FC = () => {
         />
       </motion.div>
 
-      {/* Coin Cards */}
+      {}
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         initial={{ opacity: 0 }}
@@ -91,7 +91,7 @@ const Coins: FC = () => {
         ))}
       </motion.div>
 
-      {/* Historical Data Chart */}
+      {}
       {selectedCoin && !loading && (
         <motion.div
           className="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg"
@@ -106,7 +106,7 @@ const Coins: FC = () => {
         </motion.div>
       )}
 
-      {/* Loading Indicator */}
+      {}
       {loading && (
         <motion.div
           className="flex justify-center items-center mt-12"

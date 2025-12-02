@@ -40,7 +40,7 @@ const CreateBlog = () => {
 
         {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
-        {/* Title Input */}
+        {}
         <div className="relative">
           <FaRegFileAlt className="absolute top-3 left-3 text-gray-400" />
           <input
@@ -53,7 +53,7 @@ const CreateBlog = () => {
           />
         </div>
 
-        {/* Content Input */}
+        {}
         <div className="relative">
           <FaPenNib className="absolute top-3 left-3 text-gray-400" />
           <textarea
@@ -65,7 +65,7 @@ const CreateBlog = () => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
+        {}
         <button
           type="submit"
           className="w-full flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-lg transition-all duration-300"

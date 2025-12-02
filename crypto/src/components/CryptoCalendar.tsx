@@ -49,8 +49,7 @@ const CryptoCalendar: React.FC = () => {
   const [viewMode, setViewMode] = useState<"month" | "week" | "day">("month");
   const [loading, setLoading] = useState(false);
 
-  // Particles configuration
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -83,7 +82,6 @@ const CryptoCalendar: React.FC = () => {
     return () => unsub();
   }, []);
 
-  // Fetch all events for the calendar
   useEffect(() => {
     setLoading(true);
     const q = query(collection(db, "events"), orderBy("date", "desc"));
@@ -99,7 +97,6 @@ const CryptoCalendar: React.FC = () => {
     return () => unsub();
   }, []);
 
-  // Fetch events from Firestore based on selected date
   useEffect(() => {
     const dateStr = selectedDate.toISOString().split("T")[0];
     const q = query(collection(db, "events"), where("date", "==", dateStr));
@@ -114,7 +111,6 @@ const CryptoCalendar: React.FC = () => {
     return () => unsub();
   }, [selectedDate]);
 
-  // Utility functions
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'conference': return <FaCalendarDay className="text-blue-400" />;
@@ -176,7 +172,7 @@ const CryptoCalendar: React.FC = () => {
       />
       
       <div className="relative z-10 container mx-auto py-10 px-4 sm:px-6">
-        {/* Header Section */}
+        {}
         <motion.div
           className="text-center mb-10"
           initial={{ opacity: 0, y: -50 }}
@@ -192,7 +188,7 @@ const CryptoCalendar: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Control Panel */}
+        {}
         <motion.div 
           className="bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 mb-8 border border-gray-700"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -200,7 +196,7 @@ const CryptoCalendar: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
-            {/* Search */}
+            {}
             <div className="relative">
               <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -212,7 +208,7 @@ const CryptoCalendar: React.FC = () => {
               />
             </div>
 
-            {/* Category Filter */}
+            {}
             <div className="relative">
               <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <select
@@ -229,7 +225,7 @@ const CryptoCalendar: React.FC = () => {
               </select>
             </div>
 
-            {/* View Mode */}
+            {}
             <div className="flex bg-gray-700/50 rounded-lg overflow-hidden">
               {['month', 'week', 'day'].map((mode) => (
                 <button
@@ -246,7 +242,7 @@ const CryptoCalendar: React.FC = () => {
               ))}
             </div>
 
-            {/* Add Event Button */}
+            {}
             <button
               onClick={() => setShowAddForm(!showAddForm)}
               className="flex items-center justify-center px-4 py-3 bg-teal-600 hover:bg-teal-700 rounded-lg font-semibold transition-colors duration-200"
@@ -256,7 +252,7 @@ const CryptoCalendar: React.FC = () => {
             </button>
           </div>
 
-          {/* Stats */}
+          {}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-gray-700/50 rounded-lg p-4 text-center">
               <FaCalendarAlt className="text-2xl text-blue-400 mx-auto mb-2" />
@@ -285,7 +281,7 @@ const CryptoCalendar: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Add Event Form Modal */}
+        {}
         {showAddForm && (
           <motion.div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -313,9 +309,9 @@ const CryptoCalendar: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Calendar + Event Display */}
+        {}
         <div className="flex flex-col xl:flex-row gap-8">
-          {/* Calendar Section */}
+          {}
           <motion.div 
             className="w-full xl:w-1/3"
             initial={{ opacity: 0, x: -50 }}
@@ -345,7 +341,7 @@ const CryptoCalendar: React.FC = () => {
             </Card>
           </motion.div>
 
-          {/* Events Section */}
+          {}
           <motion.div 
             className="w-full xl:w-2/3"
             initial={{ opacity: 0, x: 50 }}
@@ -464,7 +460,7 @@ const CryptoCalendar: React.FC = () => {
         </div>
       </div>
 
-      {/* Custom Calendar Styles */}
+      {}
       <style>{`
         .modern-calendar {
           background: transparent !important;

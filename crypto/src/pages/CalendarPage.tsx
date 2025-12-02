@@ -9,7 +9,7 @@ const CalendarPage: React.FC = () => {
           Crypto Events Calendar
         </h1>
 
-        {/* Crypto Calendar Component */}
+        {}
         <CryptoCalendar />
       </div>
     </div>

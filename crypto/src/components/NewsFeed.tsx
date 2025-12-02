@@ -26,8 +26,7 @@ const NewsFeed: FC = () => {
 
   const newsPerPage = 6;
 
-  // Particles configuration
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -95,7 +94,7 @@ const NewsFeed: FC = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen relative">
-      {/* Particles Background */}
+      {}
       <Particles
         id="tsparticles-newsfeed"
         init={particlesInit}
@@ -104,7 +103,7 @@ const NewsFeed: FC = () => {
       />
 
       <div className="relative z-10 p-6">
-        {/* Hero Section */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -119,7 +118,7 @@ const NewsFeed: FC = () => {
             Stay updated with the latest cryptocurrency news and market insights from around the world.
           </p>
 
-          {/* Search and Controls */}
+          {}
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <div className="relative">
               <FaSearch className="absolute left-3 top-3 text-gray-400" />
@@ -160,7 +159,7 @@ const NewsFeed: FC = () => {
           </div>
         </motion.div>
 
-        {/* News Stats */}
+        {}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -190,7 +189,7 @@ const NewsFeed: FC = () => {
           />
         </motion.div>
 
-        {/* Loading State */}
+        {}
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-teal-400 border-t-transparent"></div>
@@ -198,7 +197,7 @@ const NewsFeed: FC = () => {
           </div>
         ) : (
           <>
-            {/* News Grid */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-7xl mx-auto">
               {paginatedNews.map((item, index) => (
                 <NewsCard
@@ -210,7 +209,7 @@ const NewsFeed: FC = () => {
               ))}
             </div>
 
-            {/* Pagination */}
+            {}
             {totalPages > 1 && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -239,7 +238,7 @@ const NewsFeed: FC = () => {
               </motion.div>
             )}
 
-            {/* No Results */}
+            {}
             {filteredNews.length === 0 && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -258,7 +257,6 @@ const NewsFeed: FC = () => {
   );
 };
 
-// News Stat Card Component
 const NewsStatCard: FC<{
   icon: React.ReactNode;
   title: string;
@@ -281,7 +279,6 @@ const NewsStatCard: FC<{
   </motion.div>
 );
 
-// News Card Component
 const NewsCard: FC<{
   news: News;
   index: number;
@@ -294,7 +291,7 @@ const NewsCard: FC<{
     whileHover={{ y: -5 }}
     className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg border border-gray-700 hover:border-teal-400 transition-all duration-300 overflow-hidden group"
   >
-    {/* News Image Placeholder */}
+    {}
     <div className="h-48 bg-gradient-to-r from-teal-500 to-cyan-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"></div>
       <div className="absolute bottom-4 left-4">
@@ -307,7 +304,7 @@ const NewsCard: FC<{
       </div>
     </div>
 
-    {/* News Content */}
+    {}
     <div className="p-6">
       <div className="flex items-center mb-3 text-sm text-gray-400">
         <FaUser className="mr-2" />

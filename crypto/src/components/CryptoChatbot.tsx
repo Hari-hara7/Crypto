@@ -78,7 +78,7 @@ const CryptoPricePage: React.FC = () => {
 
   return (
     <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"} h-screen flex flex-col`}>
-      {/* Header */}
+      {}
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
         <h1 className="text-lg font-bold flex items-center">
           <FaBitcoin className="mr-2 text-yellow-400" /> CryptoGPT
@@ -88,7 +88,7 @@ const CryptoPricePage: React.FC = () => {
         </button>
       </div>
 
-      {/* Chat Window */}
+      {}
       <div className="flex-grow overflow-y-auto p-4">
         {messages.map((message, index) => (
           <motion.div
@@ -100,7 +100,7 @@ const CryptoPricePage: React.FC = () => {
               message.sender === "user" ? "flex-row-reverse" : "flex-row"
             }`}
           >
-            {/* Icon */}
+            {}
             <div
               className={`w-12 h-12 flex items-center justify-center rounded-full shadow-lg ${
                 message.sender === "user"
@@ -114,7 +114,7 @@ const CryptoPricePage: React.FC = () => {
                 <FaRobot className="text-white text-xl" />
               )}
             </div>
-            {/* Message Bubble */}
+            {}
             <div
               className={`max-w-sm p-3 rounded-lg shadow ${
                 message.sender === "user"
@@ -130,7 +130,7 @@ const CryptoPricePage: React.FC = () => {
         <div ref={chatEndRef} />
       </div>
 
-      {/* Input Section */}
+      {}
       <div className="p-4 border-t border-gray-700">
         <div className="flex items-center">
           <input

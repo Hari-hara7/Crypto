@@ -198,7 +198,7 @@ const Preferences: React.FC = () => {
         Profile Settings
       </h3>
 
-      {/* Favorite Coins */}
+      {}
       <div className="bg-gray-700/30 rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-white font-medium flex items-center">
@@ -236,7 +236,7 @@ const Preferences: React.FC = () => {
         </div>
       </div>
 
-      {/* Investment Preferences */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-gray-700/30 rounded-lg p-6">
           <label className="block text-sm text-gray-300 mb-3 flex items-center">
@@ -276,7 +276,7 @@ const Preferences: React.FC = () => {
         </div>
       </div>
 
-      {/* Currency Preference */}
+      {}
       <div className="bg-gray-700/30 rounded-lg p-6">
         <label className="block text-sm text-gray-300 mb-3 flex items-center">
           <FaCoins className="mr-2 text-green-400" />
@@ -497,7 +497,7 @@ const Preferences: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Save Button */}
+        {}
         <motion.div
           className="flex justify-center mb-8"
           initial={{ opacity: 0, y: 20 }}
@@ -514,7 +514,7 @@ const Preferences: React.FC = () => {
           </button>
         </motion.div>
 
-        {/* Navigation Tabs */}
+        {}
         <motion.div
           className="bg-gray-800/80 backdrop-blur-md rounded-2xl mb-8 border border-gray-700 overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
@@ -539,7 +539,7 @@ const Preferences: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Tab Content */}
+        {}
         <motion.div
           className="bg-gray-800/60 rounded-xl p-8 backdrop-blur-md border border-gray-700"
           initial={{ opacity: 0, y: 20 }}

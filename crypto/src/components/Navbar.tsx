@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <header className="bg-gradient-to-r from-gray-800 to-black text-white py-4 px-6 flex justify-between items-center shadow-lg relative">
-      {/* Logo */}
+      {}
       <h1 className="text-2xl font-bold text-teal-400">
         <Link to="/" className="flex items-center space-x-2">
           <svg
@@ -35,7 +35,7 @@ const Navbar = () => {
         </Link>
       </h1>
 
-      {/* Desktop Menu */}
+      {}
       <div className="hidden md:flex items-center gap-6">
         {user ? (
           <>
@@ -74,12 +74,12 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile Menu Button */}
+      {}
       <button onClick={toggleMenu} className="md:hidden">
         <FaBars className="w-6 h-6 text-teal-400" />
       </button>
 
-      {/* Mobile Dropdown */}
+      {}
       {isOpen && (
         <div className="absolute top-16 right-6 bg-gray-900 rounded-lg shadow-lg flex flex-col items-start p-4 gap-4 z-50">
           {user ? (

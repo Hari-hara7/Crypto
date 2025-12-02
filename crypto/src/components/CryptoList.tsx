@@ -95,8 +95,7 @@ const CoinList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState<boolean>(false);
 
-  // Particles configuration
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -234,7 +233,7 @@ const CoinList: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen relative">
-      {/* Particles Background */}
+      {}
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -243,7 +242,7 @@ const CoinList: React.FC = () => {
       />
 
       <div className="relative z-10">
-        {/* Hero Section */}
+        {}
         <section className="py-20 px-6 text-center relative">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -259,7 +258,7 @@ const CoinList: React.FC = () => {
               Track, analyze, and discover the latest cryptocurrency trends with real-time data and advanced features.
             </p>
 
-            {/* Search and Filter Controls */}
+            {}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="relative">
                 <FiSearch className="absolute left-3 top-3 text-gray-400" />
@@ -307,7 +306,7 @@ const CoinList: React.FC = () => {
           </motion.div>
         </section>
 
-        {/* Market Overview Cards */}
+        {}
         <section className="py-10 px-6">
           <div className="max-w-7xl mx-auto">
             <motion.h2
@@ -342,7 +341,7 @@ const CoinList: React.FC = () => {
           </div>
         </section>
 
-        {/* Main Coin Grid */}
+        {}
         <section className="py-10 px-6">
           <div className="max-w-7xl mx-auto">
             {loading ? (
@@ -376,7 +375,7 @@ const CoinList: React.FC = () => {
           </div>
         </section>
 
-        {/* Selected Coin Details Modal */}
+        {}
         {selectedCoin && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -407,7 +406,6 @@ const CoinList: React.FC = () => {
   );
 };
 
-// Market Stat Card Component
 const MarketStatCard: React.FC<{
   icon: React.ReactNode;
   title: string;
@@ -430,7 +428,6 @@ const MarketStatCard: React.FC<{
   </motion.div>
 );
 
-// Coin Card Component
 const CoinCard: React.FC<{
   coin: Coin;
   index: number;
@@ -506,7 +503,6 @@ const CoinCard: React.FC<{
   </motion.div>
 );
 
-// Coin Details Modal Component
 const CoinDetailsModal: React.FC<{
   coin: CoinDetails;
   comments: Comment[];
@@ -517,7 +513,7 @@ const CoinDetailsModal: React.FC<{
   user: User | null;
 }> = ({ coin, comments, commentInput, setCommentInput, handleAddComment, onClose, user }) => (
   <div className="space-y-6">
-    {/* Header */}
+    {}
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <img src={coin.image.large} alt={coin.name} className="w-16 h-16 rounded-full" />
@@ -534,7 +530,7 @@ const CoinDetailsModal: React.FC<{
       </button>
     </div>
 
-    {/* Price Information */}
+    {}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div className="bg-gray-800 p-4 rounded-lg">
         <p className="text-gray-400 text-sm">Current Price</p>
@@ -564,7 +560,7 @@ const CoinDetailsModal: React.FC<{
       </div>
     </div>
 
-    {/* Description */}
+    {}
     <div className="bg-gray-800 p-6 rounded-lg">
       <h3 className="text-xl font-semibold text-teal-400 mb-4 flex items-center">
         <FaChartLine className="mr-2" />
@@ -588,7 +584,7 @@ const CoinDetailsModal: React.FC<{
       )}
     </div>
 
-    {/* Comments Section */}
+    {}
     {user && (
       <div className="bg-gray-800 p-6 rounded-lg">
         <h3 className="text-xl font-semibold text-teal-400 mb-4 flex items-center">

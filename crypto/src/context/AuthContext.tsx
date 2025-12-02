@@ -1,8 +1,7 @@
-// src/context/AuthContext.tsx
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../utils/firebaseConfig"; // Assuming Firebase setup is in this file
 
-// Define User type
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../utils/firebaseConfig"; 
+
 interface User {
   _id: string;
   username: string;
@@ -21,11 +20,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(JSON.parse(localStorage.getItem('user') || 'null')); // Persist user from localStorage
 
-  // Sync Firebase user with local state
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
-        // Assuming Firebase user has uid, email, etc., adjust as needed
+
         const userData: User = {
           _id: currentUser.uid,
           username: currentUser.displayName || '',
@@ -33,25 +31,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           token: currentUser.refreshToken,
         };
         setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData)); // Save to localStorage
+        localStorage.setItem('user', JSON.stringify(userData)); 
       } else {
         setUser(null);
-        localStorage.removeItem('user'); // Remove from localStorage when logged out
+        localStorage.removeItem('user'); 
       }
     });
 
-    return () => unsubscribe(); // Cleanup on component unmount
+    return () => unsubscribe();
   }, []);
 
   const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData)); // Save to localStorage
+    localStorage.setItem('user', JSON.stringify(userData)); 
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user'); // Remove from localStorage
-    auth.signOut(); // Also sign out from Firebase
+    localStorage.removeItem('user'); 
+    auth.signOut();
   };
 
   return (

@@ -53,8 +53,7 @@ const CryptoConverter = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  // Particles configuration
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -70,7 +69,6 @@ const CryptoConverter = () => {
     },
   };
 
-  // Listen for auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -81,7 +79,6 @@ const CryptoConverter = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch coin and fiat lists
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -100,7 +97,6 @@ const CryptoConverter = () => {
     fetchData();
   }, []);
 
-  // Fetch conversion rate
   useEffect(() => {
     const fetchConversionRate = async () => {
       try {
@@ -120,7 +116,6 @@ const CryptoConverter = () => {
     fetchConversionRate();
   }, [fromCurrency, toCurrency]);
 
-  // Perform conversion and save to Firestore
   useEffect(() => {
     if (conversionRate && amount) {
       const result = amount * conversionRate;
@@ -147,7 +142,6 @@ const CryptoConverter = () => {
     }
   }, [conversionRate, amount, user, fromCurrency, toCurrency]);
 
-  // Utility functions
   const swapCurrencies = () => {
     const temp = fromCurrency;
     setFromCurrency(toCurrency);
@@ -171,10 +165,9 @@ const CryptoConverter = () => {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    // You could add a toast notification here
+
   };
 
-  // Fetch user's past conversions
   const fetchConversionHistory = async (uid: string) => {
     try {
       const q = query(collection(db, "users", uid, "conversions"), orderBy("timestamp", "desc"));
@@ -198,7 +191,6 @@ const CryptoConverter = () => {
     }
   };
 
-  // Clear conversion history
   const clearConversionHistory = async () => {
     if (!user) return;
 
@@ -221,7 +213,7 @@ const CryptoConverter = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 font-sans min-h-screen relative">
-      {/* Particles Background */}
+      {}
       <Particles
         id="tsparticles-converter"
         init={particlesInit}
@@ -230,7 +222,7 @@ const CryptoConverter = () => {
       />
 
       <div className="relative z-10 p-4 md:p-6">
-        {/* Hero Section */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -246,9 +238,9 @@ const CryptoConverter = () => {
           </p>
         </motion.div>
 
-        {/* Main Converter Section */}
+        {}
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-          {/* Converter Card */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -282,7 +274,7 @@ const CryptoConverter = () => {
                 </div>
               </div>
 
-              {/* Amount Input */}
+              {}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   <FaDollarSign className="inline mr-2" />
@@ -298,9 +290,9 @@ const CryptoConverter = () => {
                 />
               </div>
 
-              {/* Currency Selection */}
+              {}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                {/* From Currency */}
+                {}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     <FaCoins className="inline mr-2" />
@@ -319,7 +311,7 @@ const CryptoConverter = () => {
                   </select>
                 </div>
 
-                {/* To Currency */}
+                {}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     <FaDollarSign className="inline mr-2" />
@@ -339,7 +331,7 @@ const CryptoConverter = () => {
                 </div>
               </div>
 
-              {/* Conversion Result */}
+              {}
               <motion.div
                 className="bg-gradient-to-r from-teal-500/20 to-cyan-500/20 p-6 rounded-xl border border-teal-400/30"
                 initial={{ opacity: 0, y: 20 }}
@@ -381,14 +373,14 @@ const CryptoConverter = () => {
             </div>
           </motion.div>
 
-          {/* Stats and Quick Actions */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             className="lg:col-span-4 space-y-6"
           >
-            {/* Market Stats */}
+            {}
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
               <h3 className="text-lg font-semibold text-teal-400 mb-4 flex items-center">
                 <FaChartLine className="mr-2" />
@@ -410,7 +402,7 @@ const CryptoConverter = () => {
               </div>
             </div>
 
-            {/* Quick Actions */}
+            {}
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
               <h3 className="text-lg font-semibold text-teal-400 mb-4 flex items-center">
                 <FaFire className="mr-2" />
@@ -466,7 +458,7 @@ const CryptoConverter = () => {
           </motion.div>
         </div>
 
-        {/* Conversion History */}
+        {}
         {showHistory && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}

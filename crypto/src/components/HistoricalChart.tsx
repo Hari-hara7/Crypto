@@ -25,10 +25,8 @@ import {
 } from "firebase/firestore";
 import { onAuthStateChanged, User } from "firebase/auth";
 
-// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-// Time intervals
 const timeIntervals: Record<string, string> = {
   "1h": "hourly",
   "1d": "daily",
@@ -50,14 +48,12 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Listen for Firebase Auth state
   useEffect(() => {
     onAuthStateChanged(auth, (u) => {
       setUser(u);
     });
   }, []);
 
-  // Fetch top 50 coins by market cap
   useEffect(() => {
     const fetchTopCryptos = async () => {
       try {
@@ -77,7 +73,6 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
     fetchTopCryptos();
   }, []);
 
-  // Fetch historical price data
   useEffect(() => {
     const fetchChartData = async () => {
       setLoading(true);
@@ -111,7 +106,6 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
           ],
         });
 
-        // Save selection in Firestore
         if (user) {
           const userDoc = doc(db, "users", user.uid);
           await setDoc(userDoc, {
@@ -132,7 +126,6 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
     }
   }, [selectedCrypto, selectedInterval, user]);
 
-  // Listen to Firestore for real-time updates
   useEffect(() => {
     if (!user) return;
 
@@ -152,7 +145,7 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
         <CardTitle className="text-center text-2xl">📈 Crypto Historical Chart</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Dropdown */}
+        {}
         <div className="text-center">
           <select
             value={selectedCrypto}
@@ -168,7 +161,7 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
           </select>
         </div>
 
-        {/* Interval Buttons */}
+        {}
         <div className="flex flex-wrap justify-center gap-3">
           {["1h", "1d", "7d", "30d", "1y"].map((interval) => (
             <Button
@@ -190,7 +183,7 @@ const HistoricalChart: React.FC<HistoricalChartProps> = ({ cryptoId }) => {
           ))}
         </div>
 
-        {/* Chart */}
+        {}
         {loading ? (
           <p className="text-center text-yellow-400">Loading chart...</p>
         ) : error ? (

@@ -45,7 +45,7 @@ const Auth: React.FC = () => {
       <div className="bg-gradient-to-r from-gray-800 to-gray-900 shadow-2xl rounded-2xl p-8 w-80 md:w-96 transform transition-all duration-500 hover:scale-105">
         {user ? (
           <div className="flex flex-col items-center">
-            {/* User Avatar */}
+            {}
             <img
               src={user.photoURL || ""}
               alt="User Avatar"
@@ -59,7 +59,7 @@ const Auth: React.FC = () => {
               You are now connected with <strong>Crypto Tracker</strong> — explore cryptocurrency trends, market insights, and more!
             </p>
 
-            {/* User Information */}
+            {}
             <div className="text-gray-400 text-sm mb-6 space-y-2 w-full">
               <div className="flex items-center space-x-3">
                 <FaUserAlt />
@@ -74,7 +74,7 @@ const Auth: React.FC = () => {
                 <span>Joined: {formatDate(user.metadata.creationTime)}</span>
               </div>
             </div>
-{/* Navigation Links with Glassmorphism */}
+{}
 <div className="space-y-4 mb-6 w-full text-center">
 
 
@@ -112,7 +112,7 @@ const Auth: React.FC = () => {
   </Link>
 </div>
 
-            {/* Logout Button */}
+            {}
             <button
               onClick={logout}
               className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full shadow-lg w-full flex items-center justify-center space-x-2 transform transition duration-300 hover:scale-105"

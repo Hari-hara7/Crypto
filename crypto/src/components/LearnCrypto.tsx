@@ -294,7 +294,7 @@ const LearnCryptoLikeAPro = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-100">
-      {/* Hero Section */}
+      {}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -333,7 +333,7 @@ const LearnCryptoLikeAPro = () => {
               expert insights, and hands-on tutorials.
             </motion.p>
 
-            {/* Stats */}
+            {}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -370,7 +370,7 @@ const LearnCryptoLikeAPro = () => {
               </div>
             </motion.div>
 
-            {/* Action Buttons */}
+            {}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -398,10 +398,10 @@ const LearnCryptoLikeAPro = () => {
         </div>
       </motion.div>
 
-      {/* Search and Filter Section */}
+      {}
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0 lg:space-x-6 mb-8">
-          {/* Search */}
+          {}
           <div className="relative flex-1 max-w-md">
             <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -413,7 +413,7 @@ const LearnCryptoLikeAPro = () => {
             />
           </div>
 
-          {/* Category Filter */}
+          {}
           <div className="flex items-center space-x-2">
             <FaFilter className="text-gray-400" />
             <select
@@ -431,7 +431,7 @@ const LearnCryptoLikeAPro = () => {
           </div>
         </div>
 
-        {/* Learning Categories */}
+        {}
         <div className="space-y-12">
           {filteredCategories.map((category, categoryIndex) => (
             <motion.div
@@ -441,7 +441,7 @@ const LearnCryptoLikeAPro = () => {
               transition={{ delay: categoryIndex * 0.1 }}
               className="space-y-6"
             >
-              {/* Category Header */}
+              {}
               <div className="flex items-center space-x-4">
                 <div className={`p-3 rounded-xl ${category.color}`}>
                   {category.icon}
@@ -452,7 +452,7 @@ const LearnCryptoLikeAPro = () => {
                 </div>
               </div>
 
-              {/* Courses Grid */}
+              {}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {category.courses.map((course, courseIndex) => (
                   <motion.div
@@ -463,7 +463,7 @@ const LearnCryptoLikeAPro = () => {
                     className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden hover:border-gray-600 transition-all duration-300 group"
                   >
                     <div className="p-6">
-                      {/* Course Header */}
+                      {}
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">
@@ -486,7 +486,7 @@ const LearnCryptoLikeAPro = () => {
                         </button>
                       </div>
 
-                      {/* Course Metadata */}
+                      {}
                       <div className="flex items-center space-x-4 mb-4">
                         <div className="flex items-center space-x-1 text-gray-400 text-sm">
                           <FaClock />
@@ -497,7 +497,7 @@ const LearnCryptoLikeAPro = () => {
                         </Badge>
                       </div>
 
-                      {/* Completions */}
+                      {}
                       <div className="flex items-center space-x-2 mb-6 text-sm text-gray-400">
                         <FaUsers />
                         <span>{course.completions.toLocaleString()} students completed</span>
@@ -507,7 +507,7 @@ const LearnCryptoLikeAPro = () => {
                         </div>
                       </div>
 
-                      {/* Action Button */}
+                      {}
                       <a 
                         href={course.link} 
                         target="_blank" 
@@ -528,7 +528,7 @@ const LearnCryptoLikeAPro = () => {
           ))}
         </div>
 
-        {/* Comments Section */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -546,7 +546,7 @@ const LearnCryptoLikeAPro = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Comment Form */}
+              {}
               <div className="space-y-4">
                 <Textarea
                   placeholder="Share your learning experience or ask questions..."
@@ -566,7 +566,7 @@ const LearnCryptoLikeAPro = () => {
 
               <Separator className="bg-gray-700" />
 
-              {/* Comments List */}
+              {}
               <div className="space-y-4">
                 <h4 className="text-lg font-semibold text-white">
                   Recent Comments ({comments.length})

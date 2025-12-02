@@ -1,4 +1,4 @@
-// ChatRoom.tsx
+
 import { FC, useEffect, useRef, useState } from "react";
 import {
   addDoc,

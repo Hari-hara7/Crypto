@@ -8,7 +8,7 @@ interface FilterBarProps {
 
 const FilterBar: FC<FilterBarProps> = ({ onSortChange, onFilterChange }) => (
   <div className="flex flex-col sm:flex-row justify-between items-center bg-gray-800 p-4 rounded mb-6">
-    {/* Sort Dropdown with Icon */}
+    {}
     <div className="flex items-center space-x-2 mb-4 sm:mb-0">
       <FaSort className="text-white" />
       <select
@@ -21,7 +21,7 @@ const FilterBar: FC<FilterBarProps> = ({ onSortChange, onFilterChange }) => (
       </select>
     </div>
 
-    {/* Filter Input with Icon */}
+    {}
     <div className="flex items-center space-x-2">
       <FaFilter className="text-white" />
       <input

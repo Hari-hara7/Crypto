@@ -39,7 +39,6 @@ import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 
-// TypeScript interfaces
 interface Comment {
   text: string;
   author: {
@@ -222,7 +221,6 @@ const CryptoPost: React.FC = () => {
     toast.success("Comment added!");
   };
 
-  // Utility functions for new features
   const handleBookmark = (postId: string) => {
     setBookmarkedPosts(prev => 
       prev.includes(postId) 
@@ -297,7 +295,7 @@ const CryptoPost: React.FC = () => {
       />
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Header */}
+        {}
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: -50 }}
@@ -313,7 +311,7 @@ const CryptoPost: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Search and Filter Section */}
+        {}
         <motion.div
           className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 mb-8 border border-gray-700"
           initial={{ opacity: 0, y: 30 }}
@@ -321,7 +319,7 @@ const CryptoPost: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-            {/* Search Bar */}
+            {}
             <div className="relative flex-1 max-w-md">
               <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -333,7 +331,7 @@ const CryptoPost: React.FC = () => {
               />
             </div>
 
-            {/* Filter and Sort Controls */}
+            {}
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
@@ -359,7 +357,7 @@ const CryptoPost: React.FC = () => {
             </div>
           </div>
 
-          {/* Expandable Filters */}
+          {}
           <AnimatePresence>
             {showFilters && (
               <motion.div
@@ -390,7 +388,7 @@ const CryptoPost: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Alert Banner */}
+        {}
         <AnimatePresence>
           {showAlert && (
             <motion.div
@@ -411,7 +409,7 @@ const CryptoPost: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Post Creation Form */}
+        {}
         {user && !showAlert && (
           <motion.div
             className="bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 mb-8 shadow-2xl border border-gray-700"
@@ -489,7 +487,7 @@ const CryptoPost: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Posts Feed */}
+        {}
         <motion.div
           className="space-y-8"
           initial={{ opacity: 0 }}
@@ -512,7 +510,7 @@ const CryptoPost: React.FC = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   onMouseEnter={() => markAsViewed(post.id)}
                 >
-                  {/* Trending Badge */}
+                  {}
                   {post.comments.length > 5 && (
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center">
                       <FaFire className="mr-1" />
@@ -520,7 +518,7 @@ const CryptoPost: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Post Header */}
+                  {}
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center space-x-4">
                       <div className="relative">
@@ -548,7 +546,7 @@ const CryptoPost: React.FC = () => {
                       </div>
                     </div>
                     
-                    {/* Post Menu */}
+                    {}
                     <div className="relative">
                       <button 
                         onClick={() => setPostMenuOpen(postMenuOpen === post.id ? null : post.id)}
@@ -592,12 +590,12 @@ const CryptoPost: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Post Content */}
+                  {}
                   <div className="mb-6">
                     <h4 className="text-2xl font-bold text-white mb-4 leading-tight">{post.title}</h4>
                     <p className="text-gray-300 leading-relaxed text-lg">{post.content}</p>
                     
-                    {/* Hashtags */}
+                    {}
                     <div className="flex flex-wrap gap-2 mt-4">
                       {['crypto', 'blockchain', 'trading'].map((tag) => (
                         <span key={tag} className="flex items-center text-blue-400 text-sm bg-blue-500/10 px-2 py-1 rounded-full border border-blue-500/20">
@@ -608,7 +606,7 @@ const CryptoPost: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Post Actions */}
+                  {}
                   <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-700">
                     <button
                       onClick={() => handleLike(post.id)}
@@ -662,7 +660,7 @@ const CryptoPost: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Comments Section */}
+                  {}
                   <AnimatePresence>
                     {(expandedComments[post.id] || post.comments?.length === 0) && (
                       <motion.div
@@ -711,7 +709,7 @@ const CryptoPost: React.FC = () => {
                           </p>
                         )}
 
-                        {/* Add Comment */}
+                        {}
                         {user && (
                           <div className="mt-6">
                             <div className="flex space-x-4">
@@ -765,7 +763,7 @@ const CryptoPost: React.FC = () => {
           )}
         </motion.div>
 
-        {/* Share Modal */}
+        {}
         <AnimatePresence>
           {showShareModal && (
             <motion.div

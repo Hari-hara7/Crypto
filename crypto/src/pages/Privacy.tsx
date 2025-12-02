@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Privacy: FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      {/* Hero Section */}
+      {}
       <div className="bg-gradient-to-r from-teal-500/20 to-blue-500/20 border-b border-gray-700">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="flex items-center justify-center space-x-4 mb-4">
@@ -19,7 +19,7 @@ const Privacy: FC = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
-        {/* Introduction */}
+        {}
         <div className="bg-gray-800/50 rounded-xl p-6 md:p-8 border border-gray-700 mb-8">
           <p className="text-gray-300 leading-relaxed text-sm md:text-base">
             At <span className="text-teal-400 font-semibold">Crypto Tracker</span>, we take your privacy seriously. 
@@ -28,7 +28,7 @@ const Privacy: FC = () => {
           </p>
         </div>
 
-        {/* Information We Collect */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-teal-500/20 p-3 rounded-lg">
@@ -93,7 +93,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* How We Use Your Information */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-blue-500/20 p-3 rounded-lg">
@@ -136,7 +136,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* Cookies and Tracking */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-orange-500/20 p-3 rounded-lg">
@@ -170,7 +170,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* Data Security */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-green-500/20 p-3 rounded-lg">
@@ -193,7 +193,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* Third-Party Services */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-purple-500/20 p-3 rounded-lg">
@@ -217,7 +217,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* Your Rights */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-teal-500/20 p-3 rounded-lg">
@@ -257,7 +257,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* Contact Us */}
+        {}
         <section className="mb-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-blue-500/20 p-3 rounded-lg">
@@ -285,7 +285,7 @@ const Privacy: FC = () => {
           </div>
         </section>
 
-        {/* Updates to Policy */}
+        {}
         <div className="bg-yellow-500/10 rounded-lg p-6 border border-yellow-500/30 mb-8">
           <h3 className="text-xl font-semibold text-white mb-3 flex items-center">
             <FaExclamationTriangle className="text-yellow-400 mr-2" />
@@ -298,7 +298,7 @@ const Privacy: FC = () => {
           </p>
         </div>
 
-        {/* Back to Home */}
+        {}
         <div className="text-center">
           <Link
             to="/"

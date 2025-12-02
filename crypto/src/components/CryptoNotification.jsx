@@ -8,14 +8,12 @@ const CryptoNotification = () => {
   const [cryptoData, setCryptoData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  // Request Notification permission
   useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
     }
   }, []);
 
- // Send browser notifications
  const sendNotification = (title, body) => {
     if (Notification.permission === "granted") {
       new Notification(title, {
@@ -25,13 +23,11 @@ const CryptoNotification = () => {
     }
   };
 
-  // Connect to the backend and listen for updates
   useEffect(() => {
     socket.on("cryptoUpdate", (data) => {
       setCryptoData(data);
       setIsLoading(false);
 
-      // Trigger notifications
       if (data.bitcoin && data.ethereum) {
         sendNotification(
           "Crypto Update 🚀",

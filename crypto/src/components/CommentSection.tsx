@@ -10,7 +10,7 @@ const CommentSection = ({ comments }: CommentSectionProps) => {
   const [newComment, setNewComment] = useState("");
 
   const handleAddComment = () => {
-    // Here, normally you'd post the comment to server
+
     console.log("New comment added:", newComment);
     setNewComment("");
     setShowCommentBox(false);
@@ -18,10 +18,10 @@ const CommentSection = ({ comments }: CommentSectionProps) => {
 
   return (
     <div className="mt-6">
-      {/* Title */}
+      {}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-xl font-bold text-teal-400">Comments</h3>
-        {/* Comment Button */}
+        {}
         <button
           onClick={() => setShowCommentBox(!showCommentBox)}
           className="flex items-center gap-2 text-teal-300 hover:text-teal-400 transition-colors duration-300"
@@ -31,7 +31,7 @@ const CommentSection = ({ comments }: CommentSectionProps) => {
         </button>
       </div>
 
-      {/* Comment Box */}
+      {}
       {showCommentBox && (
         <div className="bg-gray-900 p-4 rounded-lg mb-6 shadow-md">
           <textarea
@@ -50,7 +50,7 @@ const CommentSection = ({ comments }: CommentSectionProps) => {
         </div>
       )}
 
-      {/* Comments List */}
+      {}
       <div className="space-y-4">
         {comments.length === 0 ? (
           <p className="text-gray-400">No comments yet. Be the first!</p>

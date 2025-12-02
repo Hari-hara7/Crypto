@@ -1,4 +1,4 @@
-// src/pages/PriceHistoryPage.tsx
+
 
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
@@ -12,7 +12,6 @@ const PriceHistoryPage: React.FC = () => {
     skip: !symbol,  // Skip the query if there's no symbol
   });
 
-  // Handle loading and error states
   if (loading) return <div>Loading price history...</div>;
   if (error) return <div>Error fetching price history</div>;
 

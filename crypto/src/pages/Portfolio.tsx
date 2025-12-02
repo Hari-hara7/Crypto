@@ -4,7 +4,6 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { FaBitcoin, FaEthereum, FaChartLine, FaSave } from "react-icons/fa";
 
-// API URL for CoinGecko
 const COINGECKO_API_URL = "https://api.coingecko.com/api/v3/simple/price?ids=";
 
 type PortfolioCoin = {

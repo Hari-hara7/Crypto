@@ -38,7 +38,7 @@ export default function PredictionPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Header Section */}
+        {}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="p-3 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white">
@@ -53,7 +53,7 @@ export default function PredictionPage() {
           </p>
         </div>
 
-        {/* Control Panel */}
+        {}
         <Card className="mb-8 shadow-lg border border-gray-700 bg-gray-800/80 backdrop-blur-sm">
           <CardHeader className="text-center">
             <CardTitle className="flex items-center justify-center gap-2 text-xl text-white">
@@ -115,7 +115,7 @@ export default function PredictionPage() {
           </CardContent>
         </Card>
 
-        {/* Results Section */}
+        {}
         <div className="flex justify-center">
           {loading && (
             <Card className="w-full max-w-md shadow-lg bg-gray-800 border-gray-700">
@@ -160,7 +160,7 @@ export default function PredictionPage() {
           )}
         </div>
 
-        {/* Info Section */}
+        {}
         {!data && !loading && (
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             <Card className="text-center hover:shadow-lg transition-shadow bg-gray-800 border-gray-700">

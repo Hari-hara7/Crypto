@@ -65,8 +65,7 @@ const CoinComparison: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [filterCategory, setFilterCategory] = useState<"all" | "selected" | "stored">("all");
 
-  // Particles configuration
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -88,7 +87,6 @@ const CoinComparison: React.FC = () => {
     },
   };
 
-  // Track authentication & Firestore coins
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
@@ -111,7 +109,6 @@ const CoinComparison: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch all available coins
   useEffect(() => {
     const fetchCoins = async () => {
       try {
@@ -135,7 +132,6 @@ const CoinComparison: React.FC = () => {
     fetchCoins();
   }, []);
 
-  // Fetch selected coin data
   useEffect(() => {
     const fetchCoinData = async () => {
       if (selectedCoins.length === 0) return;
@@ -161,7 +157,6 @@ const CoinComparison: React.FC = () => {
     fetchCoinData();
   }, [selectedCoins]);
 
-  // Fetch stored coins data
   useEffect(() => {
     const fetchStoredData = async () => {
       if (storedCoins.length === 0) return setStoredCoinData([]);
@@ -183,7 +178,6 @@ const CoinComparison: React.FC = () => {
     fetchStoredData();
   }, [storedCoins]);
 
-  // Handle coin selection
   const handleSelectCoin = async (coin: Coin) => {
     const isSelected = selectedCoins.some((c) => c.id === coin.id);
     const updated = isSelected
@@ -202,7 +196,6 @@ const CoinComparison: React.FC = () => {
     }
   };
 
-  // Delete from stored coins
   const handleDeleteStoredCoin = async (coin: Coin) => {
     if (!user) return;
     const userDoc = doc(db, "users", user.uid);
@@ -211,11 +204,10 @@ const CoinComparison: React.FC = () => {
     });
   };
 
-  // Refresh coin data
   const handleRefresh = async () => {
     setRefreshing(true);
     try {
-      // Refresh all coins list
+
       const response = await axios.get(
         "https://api.coingecko.com/api/v3/coins/markets",
         {
@@ -228,7 +220,6 @@ const CoinComparison: React.FC = () => {
       );
       setCoins(response.data);
 
-      // Refresh selected coins data
       if (selectedCoins.length > 0) {
         const ids = selectedCoins.map((coin) => coin.id).join(",");
         const selectedResponse = await axios.get(
@@ -240,7 +231,6 @@ const CoinComparison: React.FC = () => {
         setCoinData(selectedResponse.data);
       }
 
-      // Refresh stored coins data
       if (storedCoins.length > 0) {
         const ids = storedCoins.map((coin) => coin.id).join(",");
         const storedResponse = await axios.get(
@@ -258,7 +248,6 @@ const CoinComparison: React.FC = () => {
     }
   };
 
-  // Filter and sort coins
   const getFilteredCoins = () => {
     let filtered = coins.filter((coin) =>
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -346,7 +335,7 @@ const CoinComparison: React.FC = () => {
       />
       
       <div className="relative z-10 p-6">
-        {/* Header Section */}
+        {}
         <motion.div 
           className="text-center mb-8"
           initial={{ opacity: 0, y: -50 }}
@@ -362,7 +351,7 @@ const CoinComparison: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Control Panel */}
+        {}
         <motion.div 
           className="bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 mb-8 border border-gray-700"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -370,7 +359,7 @@ const CoinComparison: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-            {/* Search */}
+            {}
             <div className="relative">
               <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -382,7 +371,7 @@ const CoinComparison: React.FC = () => {
               />
             </div>
 
-            {/* Sort By */}
+            {}
             <div className="relative">
               <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <select
@@ -396,7 +385,7 @@ const CoinComparison: React.FC = () => {
               </select>
             </div>
 
-            {/* Filter Category */}
+            {}
             <div className="relative">
               <select
                 value={filterCategory}
@@ -409,7 +398,7 @@ const CoinComparison: React.FC = () => {
               </select>
             </div>
 
-            {/* Refresh Button */}
+            {}
             <button
               onClick={handleRefresh}
               disabled={refreshing}
@@ -419,7 +408,7 @@ const CoinComparison: React.FC = () => {
               {refreshing ? 'Refreshing...' : 'Refresh Data'}
             </button>
 
-            {/* Sort Order Toggle */}
+            {}
             <button
               onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
               className="flex items-center justify-center px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors duration-200"
@@ -429,7 +418,7 @@ const CoinComparison: React.FC = () => {
             </button>
           </div>
 
-          {/* Stats */}
+          {}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-gray-700/50 rounded-lg p-4 text-center">
               <FiInfo className="text-2xl text-blue-400 mx-auto mb-2" />
@@ -454,7 +443,7 @@ const CoinComparison: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Loading State */}
+        {}
         {loading && (
           <motion.div 
             className="text-center py-12"
@@ -466,7 +455,7 @@ const CoinComparison: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Error State */}
+        {}
         {error && (
           <motion.div 
             className="bg-red-600/20 border border-red-500 rounded-lg p-4 mb-6 text-center"
@@ -477,7 +466,7 @@ const CoinComparison: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Coin Selection Grid */}
+        {}
         <motion.div 
           className="mb-8"
           initial={{ opacity: 0, y: 50 }}
@@ -533,7 +522,7 @@ const CoinComparison: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Selected Coins Comparison Table */}
+        {}
         {coinData.length > 0 && (
           <motion.div
             className="bg-gray-800/80 backdrop-blur-md rounded-2xl border border-gray-700 mb-8 overflow-hidden"
@@ -603,7 +592,7 @@ const CoinComparison: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Stored Coins Table */}
+        {}
         {storedCoinData.length > 0 && (
           <motion.div
             className="bg-gray-800/80 backdrop-blur-md rounded-2xl border border-gray-700 overflow-hidden"
@@ -683,7 +672,7 @@ const CoinComparison: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Empty States */}
+        {}
         {!loading && coinData.length === 0 && selectedCoins.length === 0 && (
           <motion.div 
             className="text-center py-16"
