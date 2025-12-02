@@ -7,7 +7,8 @@ import { FaSignOutAlt, FaSignInAlt, FaBitcoin, FaUserCircle } from "react-icons/
 import { AiOutlineHome, AiOutlineCalculator, AiOutlineCalendar, AiOutlineSetting, AiOutlineRead } from "react-icons/ai";
 import { FaCoins, FaRegNewspaper, FaRobot, FaBook, FaChartLine, FaBell } from "react-icons/fa";
 import { MdCompareArrows, MdPostAdd } from "react-icons/md";
-import { BsGrid3X3Gap } from "react-icons/bs";
+import { BsGrid3X3Gap, BsChatDots } from "react-icons/bs";
+import { HiOutlineDocumentText } from "react-icons/hi";
 
 const Header: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -69,6 +70,7 @@ const Header: React.FC = () => {
         { name: "Converter", path: "/converter", icon: <AiOutlineCalculator /> },
         { name: "AI Prediction", path: "/predict", icon: <FaRobot /> },
         { name: "Crypto Calendar", path: "/calendar", icon: <AiOutlineCalendar /> },
+        
       ]
     },
     {
@@ -78,6 +80,8 @@ const Header: React.FC = () => {
         { name: "News", path: "/news", icon: <FaRegNewspaper /> },
         { name: "Learn Crypto", path: "/learn", icon: <FaBook /> },
         { name: "Posts", path: "/crypto-posts", icon: <MdPostAdd /> },
+        { name: "Blogs", path: "/home", icon: <HiOutlineDocumentText /> },
+        { name: "Chat Room", path: "/chatRoom", icon: <BsChatDots /> },
       ]
     },
     { 
