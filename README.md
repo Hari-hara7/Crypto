@@ -887,7 +887,7 @@ If you find this project helpful, please consider:
 - ⭐ Starring the repository
 - 🍴 Forking and contributing
 - 💰 [Sponsoring the project](https://github.com/sponsors/Hari-hara7)
-- ☕ [Buy us a coffee](https://www.buymeacoffee.com/cryptotracker)
+
 
 ---
 
