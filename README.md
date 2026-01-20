@@ -830,7 +830,7 @@ A: Ensure the backend server is running and CORS is properly configured for your
 
 ---
 
-## 💬 Community & Contact
+##  Contact
 
 <div align="center">
 
