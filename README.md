@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Crypto Tracker
+# ₿ Crypto Tracker
 
 [![GitHub stars](https://img.shields.io/github/stars/Hari-hara7/Crypto?style=for-the-badge&logo=github&color=gold)](https://github.com/Hari-hara7/Crypto/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Hari-hara7/Crypto?style=for-the-badge&logo=github&color=blue)](https://github.com/Hari-hara7/Crypto/network)
